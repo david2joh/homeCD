@@ -17,7 +17,7 @@
 
 <div class="container">
 
-    <a href="/index">CDs</a> |
-    <a href="/user/register">Location</a> |
-    <a href="/user/search">Composer</a>
+    <a href="/cds/list">CDs</a> |
+    <a href="/location/list">Location</a> |
+    <a href="/composer/list">Composer</a>
     <hr>

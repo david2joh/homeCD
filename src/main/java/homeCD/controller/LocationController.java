@@ -18,30 +18,48 @@ import homeCD.database.entity.Location;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
 public class LocationController {
 
+    @Autowired
+    LocationDAO locationDAO;
+
     // List and Group Cds by location for the intro menu page
-    public ModelAndView search(@RequestParam(required = false) String searchFirstName) throws Exception {
+    @RequestMapping(value = "/location/list", method = RequestMethod.GET)
+    public ModelAndView list() throws Exception {
         ModelAndView response = new ModelAndView();
-        response.setViewName("location/locationcount");
+        response.setViewName("location/list");
 
-        List<String> locations = new ArrayList<>();
+        List<Location> locations = new ArrayList<Location>();
 
-        //if(StringUtils.isEmpty(searchFirstName)) {   //apache string utils to do the same check
-        if (searchFirstName != null && !searchFirstName.isBlank()) {
-            //query
-            users = userDao.findByFirstNameIgnoreCaseContaining(searchFirstName);
-        }
-        response.addObject("searchFirstName", searchFirstName);
-        response.addObject("users", users);
+            locations = locationDAO.findAll();
+
+
+        response.addObject("locations", locations);
 
         return response;
     }
 
+    @RequestMapping(value = "/menu/menu", method = RequestMethod.GET)
+    public ModelAndView menu() throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("menu/menu");
 
+       // List<Location> locations = new ArrayList<Location>();
+
+       // locations = locationDAO.findAll();
+        List<Map<String,Object>> locations = locationDAO.getLocationCount();
+
+
+
+
+        response.addObject("locations", locations);
+
+        return response;
+    }
 
 
 

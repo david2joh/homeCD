@@ -20,6 +20,6 @@ public class Location {
     @Column(name = "location_name", nullable = false, length = 45)
     private String locationName;
 
-    @OneToMany(mappedBy = "location", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "location", fetch = FetchType.EAGER)
     private Set<Cd> cds =new HashSet<>();
 }

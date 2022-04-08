@@ -32,8 +32,8 @@ public class Cd {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "location_id", nullable = false, updatable = false, insertable = false)
     private Location location;
 
     @OneToMany(mappedBy = "cd", fetch = FetchType.LAZY)
