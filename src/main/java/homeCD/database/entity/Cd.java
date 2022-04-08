@@ -36,7 +36,7 @@ public class Cd {
     @JoinColumn(name = "location_id", nullable = false, updatable = false, insertable = false)
     private Location location;
 
-    @OneToMany(mappedBy = "cd", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cd", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Performance> performances = new HashSet<>();
 
 

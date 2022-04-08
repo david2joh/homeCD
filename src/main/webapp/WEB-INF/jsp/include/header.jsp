@@ -4,7 +4,7 @@
 
 <head>
     <meta charset ="utf-8">
-    <title>Sample Project</title>
+    <title>Home CD Catalog</title>
 </head>
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"

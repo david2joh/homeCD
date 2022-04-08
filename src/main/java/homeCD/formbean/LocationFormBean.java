@@ -14,8 +14,9 @@ import javax.validation.constraints.Pattern;
 @ToString
 public class LocationFormBean {
 
-    @NotBlank(message = "Location is required")
-    private String location;
+    @NotBlank(message = "Location Name is required")
+    @Length(max=15,min=3,message="Location Name must be between 3 and 15 character")
+    private String locationName;
 
     private Integer id;
 }

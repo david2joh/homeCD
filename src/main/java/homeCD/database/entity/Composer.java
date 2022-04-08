@@ -20,7 +20,7 @@ public class Composer {
     @Column(name = "name", nullable = false, length = 45)
     private String name;
 
-    @OneToMany(mappedBy = "composer", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "composer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Performance> performances = new HashSet<>();
 
 

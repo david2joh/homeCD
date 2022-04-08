@@ -7,12 +7,12 @@
 
  .card-img-top {
      width: 100% !important;
-     height: 300px !important;
+     height: 30vh !important;
      object-fit: cover;
  }
 
-.top-bach {
-    width: 100% !important;
-    height: 300px !important;
-    object-fit: cover;
-}
+/*.top-bach {*/
+/*    width: 100% !important;*/
+/*    height: 300px !important;*/
+/*    object-fit: cover;*/
+/*}*/
