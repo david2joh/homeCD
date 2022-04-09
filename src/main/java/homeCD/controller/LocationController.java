@@ -50,8 +50,9 @@ public class LocationController {
         return response;
     }
 
-    @RequestMapping(value = "/user/locationChange", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView registerSubmit(@Valid LocationFormBean form, BindingResult bindingResult) throws Exception {
+    @RequestMapping(value = "/user/locationChange/{action}", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView locationChange(@Valid LocationFormBean form, BindingResult bindingResult,
+                                       @PathVariable("action") String action) throws Exception {
         ModelAndView response = new ModelAndView();
 
         //ask binding result if it has errors
@@ -69,7 +70,7 @@ public class LocationController {
             response.addObject("errorMessages", errorMessages);
             response.addObject("bindingResult", bindingResult);
 
-            //because this is an error we do not want to processs to create a location in the DB
+            //because this is an error we do not want to processs to create/update/delete a location in the DB
             // We want to show the same model that we are already on location/list
             response.setViewName("redirect:/location/list");
             //response.setViewName("redirect:/user/register");
@@ -79,10 +80,39 @@ public class LocationController {
 
         Location location = locationDAO.findByLocationName(form.getLocationName());
         if (location == null) {
-            location = new Location();
-            location.setLocationName(form.getLocationName());
-            locationDAO.save(location);
+            if (action.equalsIgnoreCase("add")) {
+                location = new Location();
+                location.setLocationName(form.getLocationName());
+                locationDAO.save(location);
+                log.debug("Location creation = " + form.toString());
+            }
+            else {  //wow someone spoofed us just go back reseting the form
+                log.debug("Location creation with bad inputs = " + form.toString());
+                response.setViewName("redirect:/location/list");
+            }
         }
+        else {
+            //We have a delete or update
+            //if the action = delete then this is a delete else a update
+            //for deletes make sure that the location is really empty first.
+            //the front end doesn't allow it so the only way to get there is
+            //by spoofing the request
+            if (action.equalsIgnoreCase("update")) {
+                if (location.getCds().size() == 0) {
+                    locationDAO.delete(location);
+                    log.debug("Location deleted  : " + location.getLocationName());
+                } else {
+                    log.warn("Location delete attempted on Non Empty Location :" + location.getLocationName());
+                }
+            }
+            else if (action.equalsIgnoreCase("delete")) {
+                    //Already know that location name is valid so just update
+                    log.debug("Location name changed from : " + location.getLocationName() +
+                            " to " + form.getLocationName());
+                    location.setLocationName(form.getLocationName());
+                    locationDAO.delete(location);
+                }
+            }
         response.setViewName("redirect:/location/list");
         return response;
     }

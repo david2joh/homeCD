@@ -19,4 +19,5 @@ public class LocationFormBean {
     private String locationName;
 
     private Integer id;
+
 }
