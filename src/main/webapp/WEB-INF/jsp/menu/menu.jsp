@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../../../pub/html/header.html" %>
+<jsp:include page="../include/navbar.jsp"/>
 
 <!-- Bootstrap sematics Line up 3 cards in 1 row with a gap (gutter g-4) Add our color between cards -->
 <!-- each card is identical in shape/size and set to cover height 100 -->
