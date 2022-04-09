@@ -9,18 +9,18 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CdDAO {
+public interface CdDAO extends JpaRepository<Cd, Long> {
 
 
     public Cd findById(@Param("id") Integer id);
 
-    public List<Cd> findAllByOrderByIdAsc();
+    public List<Cd> findAllByOrderById();
 
     // Not terribly useful here
 //    public List<Cd> findByCdName(
 //            @Param("Cd") String Cd );
 
-    public List<Cd> findAllByLocationIdAsc();
+    public List<Cd> findAllByLocationIdOrderByLocationId(Integer locationId);
 
 
 

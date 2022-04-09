@@ -15,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeCDController {
 
-//    @Autowired
-//    private UserDAO userDao;
+    @Autowired
+    private UserDAO userDao;
 
     @RequestMapping(value = "/homeCD", method = RequestMethod.GET)
     public ModelAndView index() throws Exception {
