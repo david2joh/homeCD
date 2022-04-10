@@ -17,7 +17,7 @@
 
 <div class="container">
 
-    <a href="/cds/list">CDs</a> |
-    <a href="/location/list">Location</a> |
-    <a href="/composer/list">Composer</a>
-    <hr>
+<%--    <a href="/cds/list">CDs</a> |--%>
+<%--    <a href="/location/list">Location</a> |--%>
+<%--    <a href="/composer/list">Composer</a>--%>
+<%--    <hr>--%>

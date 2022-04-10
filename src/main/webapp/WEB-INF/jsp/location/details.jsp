@@ -17,18 +17,23 @@
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">${location.locationName}</h3>
                         <!-- row #1 with first_name and last_name each place in 1/2 of the card with a bootstrtrap bottom margin (mb-4)-->
                         <div class="row">
-                            <div class="col-md-6 mb-4">
+                            <div class="col-md-12 mb-4">
                                 <table class="table">
                                     <tr scope="row">
                                         <th>Id</th>
+                                        <th>Composer</th>
                                         <th>Work</th>
+                                        <th>Artist</th>
                                      </tr>
-                                    <c:forEach items="${location.cds}" var="cd" varStatus="i">
+                                    <c:forEach items="${cdDetails}" var="cd" varStatus="i">
                                         <tr scope="row">
                                             <td><c:out value="${i.getCount()}"/></td>
-                                            <c:forEach items="${cd.performances}" var="performance">
-                                                <td>${performance.performance}</td>
-                                            </c:forEach>
+                                            <td>${cd.composer}</td>
+                                            <td>${cd.performance}</td>
+                                            <td>${cd.artist}</td>
+<%--                                            <c:forEach items="${cd.performances}" var="performance">--%>
+<%--                                                <td>${performance.performance}</td>--%>
+<%--                                            </c:forEach>--%>
                                         </tr>
                                     </c:forEach>
                                 </table>
@@ -45,14 +50,14 @@
                                            required placeHolder="New Location Name" name="locationName"
                                            value="${form.locationName}"/>
                                     <label class="form-label" for="newLocation"></label>
-                                    <div id="validationfirstNameFeedback" class="invalid-feedback">
+                                    <div id="validationlocationNameFeedback" class="invalid-feedback">
                                         Please enter a valid Location Name. Locations must be between 3 and 15 characters
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-1 mb-4"></div>
                             <div class="col-md-3 pt-2">
-                                <input class="btn btn-outline-primary btn-md" type="submit" value="Change" />
+                                <input class="btn btn-outline-primary btn-md" type="submit" value="Change Location Name" />
                             </div>
                     </div>
                             </form>
@@ -63,10 +68,5 @@
     </div>
     </div>
 </section>
-
-
-
-
-${location}
 
 <%@include file="../../../pub/html/footer.html" %>

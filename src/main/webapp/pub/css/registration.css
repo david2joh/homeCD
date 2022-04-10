@@ -1,0 +1,29 @@
+/* shade the background of the page  */
+/* .gradient-custom {
+   background: linear-gradient(to bottom right,
+   rgb(147, 235, 251),
+   rgb(120, 106, 245))
+} */
+
+/* give the form fields a uniform look */
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
+}
+
+body {
+    background: linear-gradient(to bottom right,
+    rgb(147, 235, 251),
+    rgb(120, 106, 245));
+    height: 200vh;
+}
+
+.card-img-top {
+    height: 40vh;
+    object-fit: cover;
+    /* border-radius: 15px; */
+    border-top-left-radius:  .3rem;
+    border-top-right-radius: .3rem;
+}

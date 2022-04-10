@@ -20,7 +20,15 @@ public class User {
 
     @Basic
     @Column(name = "user_name", nullable = false, length = 16)
+    private String firstName;
+
+    @Basic
+    @Column(name = "first_name", nullable = false, length = 16)
     private String userName;
+
+    @Basic
+    @Column(name = "last_name", nullable = false, length = 16)
+    private String lastName;
 
     @Basic
     @Column(name = "password", nullable = false, length = 32)

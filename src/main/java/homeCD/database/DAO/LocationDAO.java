@@ -24,8 +24,8 @@ import java.util.Map;
         public List<Map<String,Object>> getLocationCount();
 
         @Query(nativeQuery = true,
-            value= "select location_name as locationName , composers.composer_name as composerName , "
-                    + "performances.performance as performance ,performances.artist as artist from cds "
+            value= "select location_name as locationName, composers.composer_name as composerName, "
+                    + "performances.performance as performance, performances.artist as artist from cds "
                     + " join performances on cds.id=performances.cd_id "
                     + " join composers on performances.composer_id = composers.id "
                     + " join locations on locations.id = cds.location_id "

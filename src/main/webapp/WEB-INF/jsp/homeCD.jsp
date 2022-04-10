@@ -47,8 +47,7 @@
     // this doesn't work but left as an academic exercise since neither Eric or Raheem could get this to work
     // And we are going to need form action on submit anyway soon
     function setLocation() {
-        let google = "./deadpool.html";
-        window.location.href = google;
+        window.location.href = "./menu/menu";
     }
 
     let loginButtonele = document.querySelector('#myLoginButton');

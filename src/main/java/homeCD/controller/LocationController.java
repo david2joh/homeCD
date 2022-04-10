@@ -1,5 +1,6 @@
 package homeCD.controller;
 
+import homeCD.formbean.CdDetailsBean;
 import homeCD.formbean.LocationFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,7 @@ import homeCD.database.entity.Location;
 //import javax.validation.Valid;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -142,6 +140,24 @@ public class LocationController {
         Location location = locationDAO.findById(locationId);
 
         response.addObject("location", location);
+
+        Map<String,Object> result = new HashMap<>();
+        List<CdDetailsBean> cdDetails = new LinkedList<>();
+        List<Map<String,Object>> results =  locationDAO.getCDdetailsBylocationId((locationId));
+        if (result != null ) {
+            for (int i = 0; i < results.size(); i++) {
+                CdDetailsBean cdDetail = new CdDetailsBean();
+                cdDetail.setId(i+1);
+                result = results.get(i);
+                cdDetail.setLocationName((String) result.get("locationName"));
+                cdDetail.setComposer((String) result.get("composerName"));
+                cdDetail.setArtist((String) result.get("artist"));
+                cdDetail.setPerformance((String) result.get("performance"));
+                cdDetails.add(cdDetail);
+            }
+            response.addObject("cdDetails", cdDetails);
+        }
+
       /*
         Seeding the model with a form id in this case spring is thorwing errors
          */
