@@ -35,7 +35,7 @@ public class UserController {
 
         /*
         Seeding the model with an empty form so that the JSP substitutions will not error out
-        in this case spring is being nice enough to not thow errors but these 2 lines are safety
+        in this case spring is being nice enough to not throw errors but these 2 lines are safety
          */
         RegisterFormBean form = new RegisterFormBean();
         response.addObject("form", form);
@@ -50,7 +50,7 @@ public class UserController {
     public ModelAndView registerSubmit(@Valid RegisterFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
 
-        //ask binidng result if it has errors
+        //ask binding result if it has errors
         if (bindingResult.hasErrors()) {
             List<String> errorMessages = new ArrayList<>();
 
@@ -61,12 +61,12 @@ public class UserController {
             //Add the information that was in the form back to the form when erroring
             //so the user does not have to re-enter the information
             response.addObject("form", form);
-            //add the errror list to the model
+            //add the error list to the model
             response.addObject("errorMessages", errorMessages);
             response.addObject("bindingResult", bindingResult);
 
             //because this is an error we do not want to processs to create a user in the DB
-            // We want to show the same model that we are alreay on resiter.jsp
+            // We want to show the same model that we are alreay on register.jsp
             response.setViewName("user/register");
             //response.setViewName("redirect:/user/register");
             return response;
@@ -77,8 +77,19 @@ public class UserController {
         //if the user from the DB is null then it means this is a Create , else an edit
         if (user == null) {
             user = new User();
+            helperRegistersubmit(form, user);
+            response.setViewName("redirect:/menu/menu");
+            return response;
         }
+        helperRegistersubmit(form, user);
 
+        response.setViewName("user/search");
+
+
+        return response;
+    }
+
+    public void helperRegistersubmit(RegisterFormBean form, User user) {
         user.setUserName(form.getUserName());
         user.setFirstName(form.getFirstName());
         user.setLastName(form.getLastName());
@@ -87,27 +98,15 @@ public class UserController {
         user.setCreateDate(new Date());
 
         userDao.save(user);
-        log.info("form submission = " + form.toString());
-
-        //       response.setViewName("user/register");
-        //Instead of showing a view we want to redirect to the edit page
-        //the edit page woll then be responsible for loading the user from the DB
-        //and dynamically creating the page
-        //when you use redirect:  as part of the view name it triiggers spring to tell
-        //the browser to do a redirect to the URL after the :   The big piece here is to
-        //reconize that redirect: uses a
-        response.setViewName("redirect:/user/edit/" + user.getId());
-
-        return response;
+        log.info("Registration form submission = " + form.toString());
     }
-
 
     //create a form on the user search page that submits to this route using a get method
     //make an input box
     //can change over to request mapping as well
     //@RequestMapping(value="/user/search", method={RequestMethod.POST, RequestMethod.GET})
     @GetMapping("/user/search")
-    // Try using @requuestparam  with value="serchFirstName"
+    // Try using @requuestparam  with value="serchUserName"
     public ModelAndView search(@RequestParam(required = false) String searchUserName) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("user/search");
@@ -124,7 +123,13 @@ public class UserController {
 
         return response;
     }
-
+    //Instead of showing a view we want to redirect to the edit page
+    //the edit page will then be responsible for loading the user from the DB
+    //and dynamically creating the page
+    //when you use redirect:  as part of the view name it triggers spring to tell
+    //the browser to do a redirect to the URL after the :   The big piece here is to
+    //recognize that redirect: uses a
+    //  response.setViewName("redirect:/user/edit/" + user.getId());
 
     @GetMapping("user/edit/{userId}")
 //    @RequestMapping(value = "/user/edit/{userId}", method = RequestMethod.GET)
