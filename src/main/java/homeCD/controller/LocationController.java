@@ -37,7 +37,7 @@ public class LocationController {
 
         List<Location> locations = new ArrayList<>();
 
-            locations = locationDAO.findAll();
+        locations = locationDAO.findAll();
 
         response.addObject("locations", locations);
         /*
@@ -50,7 +50,7 @@ public class LocationController {
         return response;
     }
 
-    @RequestMapping(value = "/user/locationChange/{action}", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/location/locationChange/{action}", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView locationChange(@Valid LocationFormBean form, BindingResult bindingResult,
                                        @PathVariable("action") String action) throws Exception {
         ModelAndView response = new ModelAndView();
@@ -77,8 +77,11 @@ public class LocationController {
             return response;
         }
 
-
+        Location dbLocation = new Location();
         Location location = locationDAO.findByLocationName(form.getLocationName());
+        if (action.equalsIgnoreCase("update") && (form.getId() != 0)) {
+            location = locationDAO.findById(form.getId());
+        }
         if (location == null) {
             if (action.equalsIgnoreCase("add")) {
                 location = new Location();
@@ -86,37 +89,48 @@ public class LocationController {
                 locationDAO.save(location);
                 log.debug("Location creation = " + form.toString());
             }
+            else if (action.equalsIgnoreCase("update")) {
+                //Already know that location name is valid so just update
+                log.debug("Location name changed from : " + location.getLocationName() +
+                        " to " + form.getLocationName());
+                location.setLocationName(form.getLocationName());
+                locationDAO.save(location);
+                response.setViewName("redirect:/location/list");
+                return response;
+            }
             else {  //wow someone spoofed us just go back reseting the form
                 log.debug("Location creation with bad inputs = " + form.toString());
                 response.setViewName("redirect:/location/list");
             }
-        }
-        else {
+        } else {
             //We have a delete or update
             //if the action = delete then this is a delete else a update
             //for deletes make sure that the location is really empty first.
             //the front end doesn't allow it so the only way to get there is
             //by spoofing the request
-            if (action.equalsIgnoreCase("update")) {
+            if (action.equalsIgnoreCase("delete")) {
                 if (location.getCds().size() == 0) {
                     locationDAO.delete(location);
                     log.debug("Location deleted  : " + location.getLocationName());
-                } else {
+                }
+                else {
                     log.warn("Location delete attempted on Non Empty Location :" + location.getLocationName());
                 }
             }
-            else if (action.equalsIgnoreCase("delete")) {
+            else {
+                if (action.equalsIgnoreCase("update")) {
                     //Already know that location name is valid so just update
                     log.debug("Location name changed from : " + location.getLocationName() +
                             " to " + form.getLocationName());
                     location.setLocationName(form.getLocationName());
-                    locationDAO.delete(location);
+                    locationDAO.save(location);
+                    lDetails(location.getId());
                 }
             }
-        response.setViewName("redirect:/location/list");
-        return response;
-    }
-
+        }
+            response.setViewName("redirect:/location/list");
+            return response;
+        }
 
 
 
@@ -128,6 +142,13 @@ public class LocationController {
         Location location = locationDAO.findById(locationId);
 
         response.addObject("location", location);
+      /*
+        Seeding the model with a form id in this case spring is thorwing errors
+         */
+        LocationFormBean form = new LocationFormBean();
+        form.setId(locationId);
+        form.setLocationName(location.getLocationName());
+        response.addObject("form", form);
 
         return response;
     }

@@ -17,8 +17,8 @@ public class Composer {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic
-    @Column(name = "name", nullable = false, length = 45)
-    private String name;
+    @Column(name = "composer_name", nullable = false, length = 45)
+    private String composerName;
 
     @OneToMany(mappedBy = "composer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Performance> performances = new HashSet<>();

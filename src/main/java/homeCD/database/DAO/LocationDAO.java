@@ -12,6 +12,8 @@ import java.util.Map;
 @Repository
     public interface LocationDAO extends JpaRepository<Location, Long> {
 
+
+
         public Location findById(@Param("id") Integer id);
 
        // public List<Location> findAllOrderByIdAsc();
@@ -20,6 +22,16 @@ import java.util.Map;
         public Location findByLocationName(@Param("locationName") String locationName);
         @Query(value= "Select l.location_name as locationName , count(c.id) as cnt from locations as l join cds as c on l.id = c.location_id group by l.id order by l.id", nativeQuery = true)
         public List<Map<String,Object>> getLocationCount();
+
+        @Query(nativeQuery = true,
+            value= "select location_name as locationName , composers.composer_name as composerName , "
+                    + "performances.performance as performance ,performances.artist as artist from cds "
+                    + " join performances on cds.id=performances.cd_id "
+                    + " join composers on performances.composer_id = composers.id "
+                    + " join locations on locations.id = cds.location_id "
+                    + " where locations.id=:locId")
+        public List<Map<String,Object>> getCDdetailsBylocationId(@Param("locId") Integer locationId);
+
 
 
     }

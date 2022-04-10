@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../../../pub/html/header.html" %>
+<jsp:include page="../include/navbar.jsp" />
 
 <!-- one section to rule them all . kludge in the view height to 200 to allow for the errors to show up -->
 <section class="gradient-custom">
@@ -19,13 +20,15 @@
                             <div class="col-md-6 mb-4">
                                 <table class="table">
                                     <tr scope="row">
-                                        <th>counter</th>
                                         <th>Id</th>
+                                        <th>Work</th>
                                      </tr>
                                     <c:forEach items="${location.cds}" var="cd" varStatus="i">
                                         <tr scope="row">
                                             <td><c:out value="${i.getCount()}"/></td>
-                                            <td>${cd.id}</td>
+                                            <c:forEach items="${cd.performances}" var="performance">
+                                                <td>${performance.performance}</td>
+                                            </c:forEach>
                                         </tr>
                                     </c:forEach>
                                 </table>
@@ -33,24 +36,27 @@
                         </div>
                         <!-- Row #6 the Submit button. Use bootstrap to make the button an outline with blue color  -->
                         <!-- This row is divided 3 3 6  : 3 for SUbmit button ; 3 blank space ; 6 Message to the user -->
+                        <form action="/location/locationChange/update" id="addForm">
                         <div class="row">
-                            <div class="col-md-1 mb-4"></div>
-                            <div class="col-md-4 mb-4">
+                            <div class="col-auto mb-4">
                                 <div class="form-outline">
+                                    <input type="hidden" id ="formId" name="id" value="${form.id}">
                                     <input type="text" id="newLocation" class="form-control form-control-lg"
-                                           required />
-                                    <label class="form-label" for="newLocation">New Location</label>
+                                           required placeHolder="New Location Name" name="locationName"
+                                           value="${form.locationName}"/>
+                                    <label class="form-label" for="newLocation"></label>
                                     <div id="validationfirstNameFeedback" class="invalid-feedback">
-                                        Please enter a First Name
+                                        Please enter a valid Location Name. Locations must be between 3 and 15 characters
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-1 mb-4"></div>
                             <div class="col-md-3 pt-2">
-                                <input class="btn btn-outline-primary btn-md" type="submit" value="Submit" />
+                                <input class="btn btn-outline-primary btn-md" type="submit" value="Change" />
                             </div>
-                        <!-- DIV SOUP  -->
                     </div>
+                            </form>
+                        <!-- DIV SOUP  -->
                 </div>
             </div>
         </div>
