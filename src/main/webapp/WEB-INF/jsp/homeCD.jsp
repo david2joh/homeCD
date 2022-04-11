@@ -14,7 +14,7 @@
 <!-- Put a container to hold everything as I prefer not to style the body if possible -->
 <div class=myContainer>
     <!-- My form class  -->
-    <form class="form login-form">
+    <form class="form login-form" action="/homeCD" method="post">
         <!-- div for the CD image -->
         <div id="layover">
             <div id="myDiv"></div>
@@ -23,15 +23,15 @@
         <!-- pretty standard username/password fields , use the placeholder to tell the user inside the boxes -->
         <div class="form-group">
             <label for="userName">User name&nbsp&nbsp</label>
-            <input class="form-input" type="text" id="userName" placeholder="username">
+            <input class="form-input" type="text" id="userName" placeholder="username" name="userName">
         </div>
         <div class="form-group">
             <label for="password">Password&nbsp&nbsp&nbsp</label>
-            <input class="form-input" type="password" id="password" placeholder="don't forget this">
+            <input class="form-input" type="password" id="password" placeholder="don't forget this" name="password">
         </div>
         <!-- login button tied to onSubmit functions -->
-        <button id="myLoginButton">
-            <p>LOGIN</p>
+        <button id="myLoginButton" type="submit" value="Submit">
+          LOGIN
         </button>
 
         <div class="registerLogin">

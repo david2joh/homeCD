@@ -16,8 +16,7 @@ public interface UserDAO extends JpaRepository<User, Long> {
 
     public List<User> findAllByOrderByIdAsc();
 
-    public User findByUserName(
-            @Param("UserName") String UserName);
+    public User findByUserName(@Param("userName") String userName);
 
     List<User> findByUserNameIgnoreCaseContaining(String searchUserName);
 }

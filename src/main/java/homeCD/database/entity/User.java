@@ -19,11 +19,11 @@ public class User {
     private Integer id;
 
     @Basic
-    @Column(name = "user_name", nullable = false, length = 16)
+    @Column(name = "first_name", nullable = false, length = 16)
     private String firstName;
 
     @Basic
-    @Column(name = "first_name", nullable = false, length = 16)
+    @Column(name = "user_name", nullable = false, length = 16)
     private String userName;
 
     @Basic

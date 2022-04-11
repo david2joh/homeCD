@@ -78,7 +78,7 @@ public class UserController {
         if (user == null) {
             user = new User();
             helperRegistersubmit(form, user);
-            response.setViewName("redirect:/menu/menu");
+            response.setViewName("redirect:/homeCD");
             return response;
         }
         helperRegistersubmit(form, user);
@@ -153,5 +153,33 @@ public class UserController {
 
         return response;
     }
+
+
+    /* this method is the entry point for login*/
+    @PostMapping("/homeCD")
+    public ModelAndView loginCD(@RequestParam(required = false) String userName , @RequestParam(required = false) String password) throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("homeCD");
+        if (userName != null && !userName.isEmpty() && password != null && !password.isEmpty())
+        {
+            //attempting to login
+            User user = new User();
+            user = userDao.findByUserName(userName);
+            if (user != null && password.equals(user.getPassword()))
+            {
+                response.setViewName("redirect:/menu/menu");
+                return response;
+            }
+        }
+        /*
+        Seeding the model with an empty form so that the JSP substitutions will not error out
+        in this case spring is being nice enough to not throw errors but these 2 lines are safety
+         */
+        RegisterFormBean form = new RegisterFormBean();
+        response.addObject("form", form);
+
+        return response;
+    }
+
 
 }
