@@ -95,7 +95,7 @@ public class UserController {
         user.setLastName(form.getLastName());
         user.setPassword(form.getPassword());
         user.setUserType(form.getUserType());
-        user.setCreateDate(new Date());
+
 
         userDao.save(user);
         log.info("Registration form submission = " + form.toString());
@@ -106,17 +106,17 @@ public class UserController {
     //can change over to request mapping as well
     //@RequestMapping(value="/user/search", method={RequestMethod.POST, RequestMethod.GET})
     @GetMapping("/user/search")
-    // Try using @requuestparam  with value="serchUserName"
+    // Try using @requestparam  with value="serchUserName"
     public ModelAndView search(@RequestParam(required = false) String searchUserName) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("user/search");
 
-        List<User> users = new ArrayList<>();
+      List<User> users = new ArrayList<>();
 
         //if(StringUtils.isEmpty(searchFirstName)) {   //apache string utils to do the same check
         if (searchUserName != null && !searchUserName.isBlank()) {
             //query
-            users = userDao.findByUserNameIgnoreCaseContaining(searchUserName);
+            users = userDao.findByUserNameContainingIgnoreCase(searchUserName);
         }
         response.addObject("searchUserName", searchUserName);
         response.addObject("users", users);

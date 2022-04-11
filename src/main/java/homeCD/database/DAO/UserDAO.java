@@ -18,6 +18,10 @@ public interface UserDAO extends JpaRepository<User, Long> {
 
     public User findByUserName(@Param("userName") String userName);
 
-    List<User> findByUserNameIgnoreCaseContaining(String searchUserName);
+    List<User> findByFirstNameIgnoreCaseContaining(String userName);
+
+    // collate utf8mb4_general_ci
+    @Query(value = "select * from Users u where lower(u.user_name) LIKE CONCAT('%',lower(:username),'%') ", nativeQuery = true)
+    List<User> findByUserNameContainingIgnoreCase(@Param("username") String username);
 }
 
