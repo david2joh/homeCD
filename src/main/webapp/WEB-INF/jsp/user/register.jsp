@@ -35,7 +35,7 @@
                         </c:if>
                         <!-- Start my form .   Use the bootstrap sematics for form validation this gives the nice red
                         green outline on submit validation. Note this validates every field in the form for empty/not empty -->
-                        <form class="needs-validation" novalidate id="registerForm" action="/user/registerSubmit" method="get">
+                        <form class="needs-validation" novalidate id="registerForm" action="/user/registerSubmit" method="post">
                             <input type="hidden" name="id" value="${form.id}">
                             <!-- row #1 with UserName  Input type text-->
                             <div class="row">
@@ -47,6 +47,9 @@
                                         <div id="validationuserNameFeedback" class="invalid-feedback">
                                             Please choose a valid UserName
                                         </div>
+                                        <c:forEach items='${bindingResult.getFieldErrors("userName")}' var="error">
+                                            <div style="color:red;">${error.getDefaultMessage()}</div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                             </div>
@@ -60,6 +63,9 @@
                                         <div id="validationfirstNameFeedback" class="invalid-feedback">
                                             Please enter a First Name
                                         </div>
+                                            <c:forEach items='${bindingResult.getFieldErrors("firstName")}' var="error">
+                                                <div style="color:red;">${error.getDefaultMessage()}</div>
+                                            </c:forEach>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-2">
@@ -70,6 +76,9 @@
                                         <div id="validationlastNameFeedback" class="invalid-feedback">
                                             Please enter a Last Name
                                         </div>
+                                            <c:forEach items='${bindingResult.getFieldErrors("lastName")}' var="error">
+                                                <div style="color:red;">${error.getDefaultMessage()}</div>
+                                            </c:forEach>
                                     </div>
                                 </div>
                             </div>
@@ -84,6 +93,9 @@
                                         <div id="validationPasswordFeedback" class="invalid-feedback">
                                             Invalid Password : Must contain one Uppercase,  one Lower Case One digit, One special char
                                         </div>
+                                            <c:forEach items='${bindingResult.getFieldErrors("password")}' var="error">
+                                                <div style="color:red;">${error.getDefaultMessage()}</div>
+                                            </c:forEach>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-2 pb-2">
@@ -151,7 +163,6 @@
     </div>
 </section>
 
-${form}
 </body>
 
 
@@ -161,10 +172,10 @@ ${form}
         if (document.getElementById('password').value ==
             document.getElementById('confirmPassword').value) {
             document.getElementById('message').style.color = 'green';
-            document.getElementById('message').innerHTML = 'Password confirmed';
+            document.getElementById('message').innerHTML = 'Password/Confirm match';
         } else {
             document.getElementById('message').style.color = 'red';
-            document.getElementById('message').innerHTML = 'Password does not match';
+            document.getElementById('message').innerHTML = 'Password/Confirm do not match';
         }
     }
 </script>

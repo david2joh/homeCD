@@ -7,14 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Main Login</title>
-    <link href="../../pub/css/login.css" rel="stylesheet">
+    <link href="../../../pub/css/login.css" rel="stylesheet">
+<%--    <link href="<c:url value="/pub/css/login.css" />" rel="stylesheet"> --%>
 </head>
 
 <body class="body">
 <!-- Put a container to hold everything as I prefer not to style the body if possible -->
 <div class=myContainer>
     <!-- My form class  -->
-    <form class="form login-form" action="/homeCD" method="post">
+    <form class="form login-form" action="/login/homeCD" method="post">
         <!-- div for the CD image -->
         <div id="layover">
             <div id="myDiv"></div>
