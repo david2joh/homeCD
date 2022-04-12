@@ -7,21 +7,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface CdDAO extends JpaRepository<Cd, Long> {
 
 
+
     public Cd findById(@Param("id") Integer id);
 
-    public List<Cd> findAllByOrderById();
+   // public List<Cd> findAllOrderById();
 
-    // Not terribly useful here
-//    public List<Cd> findByCdName(
-//            @Param("Cd") String Cd );
-
-    public List<Cd> findAllByLocationIdOrderByLocationId(Integer locationId);
-
-
+    public List<Cd> findAll();
 
 }
