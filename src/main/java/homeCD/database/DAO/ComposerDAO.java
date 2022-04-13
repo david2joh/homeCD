@@ -20,6 +20,9 @@ public interface ComposerDAO extends JpaRepository<Composer, Long> {
 
     public Composer findByComposerName(@Param("composerName") String composerName);
 
+    @Query(value= "select c from Composer c order by c.composerName")
+    public List<Composer> findAllOrderByComposerName();
+
     public List<Composer> findComposerByComposerNameContainingIgnoreCase
          (@Param("composerName") String composerName);
 

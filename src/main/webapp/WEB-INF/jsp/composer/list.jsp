@@ -18,7 +18,7 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">COMPOSERS</h3>
 
 
-                        <table class="table">
+                        <table class="table table-bordered" data-virtual-scroll="true">
                             <tr scope="row">
                                 <th>Composer</th>
                                 <th>Composer Name</th>
@@ -42,23 +42,27 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                 </tr>
                             </c:forEach>
                         </table>
-                        <!-- Row #6 the Submit button. Use bootstrap to make the button an outline with blue color  -->
-                        <!-- This row is divided 3 3 6  : 3 for SuUbmit button ; 3 blank space ; 6 Message to the user -->
+                        <!-- Use bootstrap to make the button an outline with blue color  -->
+                        <!-- This row is divided 1 4 1 3 -->
+                        <br>
                         <form action="/composer/composerChange/add" id="addForm">
                             <div class="row">
                                 <div class="col-md-1 mb-4"></div>
                                 <div class="col-md-4 mb-4">
                                     <div class="form-outline">
-                                        <input type="text" id="newComposer" class="form-control form-control-lg"
+                                        <input type="text" id="newComposer" class="form-control form-control-sm"
                                                placehoder="Add New Composer" name="composerName" />
                                         <label class="form-label" for="newComposer">Add New Composer</label>
                                         <div id="validationnewcomposerFeedback" class="invalid-feedback"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-1 mb-4"></div>
-                                <div class="col-md-3 pt-2">
-                                    <input class="btn btn-outline-primary btn-md" type="submit" value="add" />
+                                <div class="col-md-3 mb-4">
+                                    <input class="btn btn-outline-primary btn-sm" type="submit" value="add" />
                                 </div>
+                                <c:forEach items='${bindingResult.getFieldErrors("composerName")}' var="error">
+                                    <div style="color:red;">${error.getDefaultMessage()}</div>
+                                </c:forEach>
                             </div>
                         </form>
                         <br>

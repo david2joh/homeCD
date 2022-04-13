@@ -1,13 +1,12 @@
 package homeCD.database.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @Entity
 @Table(name="performances")
@@ -17,10 +16,10 @@ public class Performance {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Basic
-    @Column(name = "cd_id", insertable = false, nullable = false)
+    @Column(name = "cd_id", insertable = false, nullable = false, updatable = false)
     private Integer cdId;
     @Basic
-    @Column(name = "composer_id", insertable = false, nullable = false)
+    @Column(name = "composer_id", insertable = false, nullable = false, updatable = false)
     private Integer composerId;
     @Basic
     @Column(name = "performance", nullable = false, length = 45)
@@ -31,14 +30,14 @@ public class Performance {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "cd_id", nullable = false, updatable = false, insertable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cd_id", nullable = false)
     private Cd cd;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "composer_id", nullable = false, updatable = false, insertable = false)
+    @JoinColumn(name = "composer_id", nullable = false)
     private Composer composer;
 
     public Composer getComposer() {

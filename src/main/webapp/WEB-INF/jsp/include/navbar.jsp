@@ -30,13 +30,13 @@
                     <a class="nav-link active" aria-current="page" href="../menu/menu">| Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../composers/list">| Composers</a>
+                    <a class="nav-link" href="../composer/list">| Composers</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../location/list">| Locations</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../perforamaces/list">| Performances</a>
+                    <a class="nav-link" href="../perforamace/list">| Performances</a>
                 </li>
 
                <li class="nav-item dropdown" id="navright">
