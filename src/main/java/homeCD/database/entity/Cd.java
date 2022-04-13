@@ -36,6 +36,8 @@ public class Cd {
     @JoinColumn(name = "location_id", nullable = false, updatable = false, insertable = false)
     private Location location;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "cd", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Performance> performances = new HashSet<>();
 

@@ -22,7 +22,7 @@ public class HomeCDController {
 @Autowired
 private UserDAO userDao;
 
-   @RequestMapping(value = {"/login/homeCD", "/login/login", "/homeCD"}, method = {RequestMethod.POST, RequestMethod.GET})
+   @RequestMapping(value = {"/login/homeCD", "/homeCD"}, method = {RequestMethod.POST, RequestMethod.GET})
 /* this method is the entry point for login*/
 //    @PostMapping("/homeCD")
     public ModelAndView loginCD(@RequestParam(required = false) String userName , @RequestParam(required = false) String password) throws Exception {

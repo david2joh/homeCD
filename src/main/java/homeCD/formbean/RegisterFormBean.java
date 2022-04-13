@@ -28,7 +28,7 @@ public class RegisterFormBean {
 
     @Length(min= 3, max= 32, message="Password must be between 3 and 32 characters.")
     @NotBlank(message="Password is required")
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){3,32}$" , message = "Password invalid: One Uppercase, One lower case, One digit, One special char")
+    // @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\\w\\d\\s:])([^\\s]){3,32}$" , message = "Password invalid: One Uppercase, One lower case, One digit, One special char")
     private String password;
 
     @NotBlank(message="Confirm password is required")
