@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../../../pub/html/header.html" %>
+<%--<jsp:include page="../include/header.jsp" />--%>
 <jsp:include page="../include/navbar.jsp" />
+<link <c:url value="/src/main/webapp/pub/css/composerlist.css"/> rel="stylesheet">
 
 <!-- one section to rule them all . kludge in the view height to 200 to allow for the errors to show up -->
 <section class="gradient-custom">
@@ -17,7 +19,8 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">COMPOSERS</h3>
 
-
+<%--                        <div class="scrollable" style="height: 300px; overflow-y: scroll;">--%>
+                        <div class="myScrollable">
                         <table class="table table-bordered" data-virtual-scroll="true">
                             <tr scope="row">
                                 <th>Composer</th>
@@ -42,6 +45,7 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                 </tr>
                             </c:forEach>
                         </table>
+                        </div>
                         <!-- Use bootstrap to make the button an outline with blue color  -->
                         <!-- This row is divided 1 4 1 3 -->
                         <br>

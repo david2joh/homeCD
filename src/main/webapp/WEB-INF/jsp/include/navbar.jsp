@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <style>
     #navright {
         flex : 1;
@@ -18,9 +19,8 @@
     }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light">
-<%--    <nav class="navbar navbar-expand-lg navbar-light gradient-custom">--%>
     <div class="container-fluid">
-        <a class="navbar-brand" href="../menu/menu"><b>Menu</b></a>
+        <a class="navbar-brand h3" href="#"><b>Menu</b></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -38,6 +38,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../perforamace/list">| Performances</a>
                 </li>
+                <li class="nav-item">
+                    <sec:authorize access="!isAuthenticated()">
+                    <a class="nav-link" href="/login/login">| Login</a>
+                    </sec:authorize>
+
+                    <sec:authorize access="isAuthenticated()">
+                        <a class="nav-link" href="/login/logout">| Logout</a>
+                        <%--        capture the user that is logged in--%>
+<%--                        authenticated as <sec:authentication property="principal.username"/>--%>
+                    </sec:authorize>
+                </li>
+
+
+                <sec:authorize access="hasAuthority('ADMIN')">
 
                <li class="nav-item dropdown" id="navright">
                    <a class="nav-link dropdown-toggle text-end" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -50,7 +64,7 @@
 <%--                       <li><a class="dropdown-item" href="#"></a></li>--%>
                    </ul>
                </li>
-
+                </sec:authorize>
             </ul>
 <%--            <form class="d-flex">--%>
 <%--                <input class="form-control me-2" type="search" placeholder="Find a CD" aria-label="Search">--%>
@@ -59,3 +73,7 @@
         </div>
     </div>
 </nav>
+
+
+<%--    <a href="/login/logout">Logout</a>--%> <%--//before Spring security--%>
+<%--    setup with spring security here to change login/logout--%>

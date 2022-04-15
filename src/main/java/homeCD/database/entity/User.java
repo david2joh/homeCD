@@ -35,7 +35,4 @@ public class User {
     @Column(name = "last_name", nullable = false, length = 30)
     private String lastName;
 
-    @Basic
-    @Column(name = "user_type", nullable = false)
-    private Integer userType;
 }

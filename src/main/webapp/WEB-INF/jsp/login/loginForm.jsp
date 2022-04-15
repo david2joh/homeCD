@@ -36,7 +36,7 @@
         </button>
 
         <div class="registerLogin">
-            <a href="./user/register" target="_blank" rel="noopener noreferrer">Register New User</a>
+            <a href="../user/register" target="_blank" rel="noopener noreferrer">Register New User</a>
 
             <p>Forgot your Login?</p>
         </div>

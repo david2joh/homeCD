@@ -15,7 +15,7 @@
 <!-- Put a container to hold everything as I prefer not to style the body if possible -->
 <div class=myContainer>
     <!-- My form class  -->
-    <form class="form login-form" action="/login/homeCD" method="post">
+    <form class="form login-form" action="/login/loginSubmit" method="post">
         <!-- div for the CD image -->
         <div id="layover">
             <div id="myDiv"></div>
@@ -36,7 +36,7 @@
         </button>
 
         <div class="registerLogin">
-            <a href="./user/register" target="_blank" rel="noopener noreferrer">Register New User</a>
+            <a href="../user/register" target="_blank" rel="noopener noreferrer">Register New User</a>
 
             <p>Forgot your Login?</p>
         </div>

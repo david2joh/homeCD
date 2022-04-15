@@ -1,0 +1,7 @@
+/* shade the background of the page  */
+body {
+    background: linear-gradient(to bottom right,
+    rgb(147, 235, 251),
+    rgb(120, 106, 245));
+    color: ghostwhite;
+}

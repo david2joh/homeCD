@@ -113,7 +113,7 @@
                                     <h6 class="mb-2 pb-1">User Type: </h6>
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="userType"
-                                               id="admin" value="1"
+                                               id="admin" value="ADMIN"
                                         />
                                         <label class="form-check-label" for="admin">Admin</label>
                                     </div>
@@ -121,7 +121,7 @@
                                     <div class="form-check form-check-inline">
                                         <input
                                                 class="form-check-input" type="radio" name="userType"
-                                                id="user" value="2" checked />
+                                                id="user" value="USER" checked />
                                         <label class="form-check-label" for="user">User</label>
                                     </div>
                                     <div class="form-check form-check-inline">
@@ -147,7 +147,7 @@
                             <!-- This row is divided 3 3 6  : 3 for SUbmit button ; 3 blank space ; 6 Message to the user -->
                             <div class="row">
                                 <div class="col-md-3 mt-4 pt-2">
-                                    <input class="btn btn-outline-primary btn-md" type="submit" value="Submit" />
+                                    <input class="btn btn-outline-primary btn-md" id="mySubmitBtn" onclick="validate()" type="submit" value="Submit" />
                                 </div>
                                 <div class="col-md-3 mt-4 pt-2">
                                 </div>
@@ -162,12 +162,33 @@
         </div>
     </div>
 </section>
-
+<%--<script src="../js/register.js"></script>--%>
 </body>
 
 
-<script>
 
+    // // SBA  loop through an array (well it only has one member but ...)
+    // function validate() {
+    //     'use strict'
+    //     let button = document.querySelector("#mySubmitBtn");
+    //     button.addEventListener("click", validate());
+    //     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    //     let forms = document.querySelectorAll('.needs-validation')
+    //
+    //     // Loop over them and prevent submission
+    //     Array.prototype.slice.call(forms)
+    //         .forEach(function (form) {
+    //             form.addEventListener('submit', function (event) {
+    //                 if (!form.checkValidity()) {
+    //                     event.preventDefault()
+    //                     event.stopPropagation()
+    //                 }
+    //
+    //                 form.classList.add('was-validated')
+    //             }, false)
+    //         })
+    // }
+<script>
     const check = function() {
         if (document.getElementById('password').value ==
             document.getElementById('confirmPassword').value) {
@@ -180,5 +201,6 @@
     }
 </script>
 
-<%--<script src="../js/register.js"></script>--%>
-</html>
+
+
+<%@include file="../../../pub/html/footer.html" %>

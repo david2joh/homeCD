@@ -1,5 +1,5 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -12,12 +12,21 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<link rel="stylesheet" type="text/css" href="../css/headergeneral.css">--%>
+<link href="<c:url value="../../../pub/css/headergeneral.css"/>" rel="stylesheet" type="text/css"/>
+<%--<style>--%>
+<%--    .gradient-custom {--%>
+<%--        background: linear-gradient(to bottom right,--%>
+<%--        rgb(147, 235, 251),--%>
+<%--        rgb(120, 106, 245))--%>
+<%--    }--%>
+<%--    .card-img-top {--%>
+<%--        width: 100% !important;--%>
+<%--        height: 30vh !important;--%>
+<%--        object-fit: cover;--%>
+<%--    }--%>
 
-<body>
+<%--</style>--%>
+<body class="gradient-custom">
 
-<div class="container">
-
-<%--    <a href="/cds/list">CDs</a> |--%>
-<%--    <a href="/location/list">Location</a> |--%>
-<%--    <a href="/composer/list">Composer</a>--%>
-<%--    <hr>--%>
+<container>
