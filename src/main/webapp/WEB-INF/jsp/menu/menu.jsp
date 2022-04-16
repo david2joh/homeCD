@@ -1,5 +1,4 @@
 <%@include file="../include/header.jsp"  %>
-<%--<%@include file="../../../pub/html/header.html" %>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../include/navbar.jsp"/>
 

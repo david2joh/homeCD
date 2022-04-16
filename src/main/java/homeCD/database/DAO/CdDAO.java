@@ -20,4 +20,7 @@ public interface CdDAO extends JpaRepository<Cd, Long> {
 
     public List<Cd> findAll();
 
+
+    @Query(value = "SELECT cd FROM Cd cd WHERE cd.label = :label AND cd.catalogNumber = :catalogNumber")
+    Cd findCdByLabelAndAndCatalogNumber(@Param("label") String label, @Param("catalogNumber") String catalogNumber);
 }

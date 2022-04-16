@@ -58,7 +58,7 @@
                        Admin
                    </a>
                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                       <li><a class="dropdown-item" href="/cd/">Add a CD</a></li>
+                       <li><a class="dropdown-item" href="/cd/cdAdd">Add a CD</a></li>
                        <li><a class="dropdown-item" href="/user/search">Find a User</a></li>
 <%--                       <li><hr class="dropdown-divider"></li>--%>
 <%--                       <li><a class="dropdown-item" href="#"></a></li>--%>
