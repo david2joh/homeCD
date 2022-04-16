@@ -26,4 +26,24 @@ import java.util.*;
 @Slf4j
 @Controller
 public class MenuController {
+
+    @Autowired
+    LocationDAO locationDao;
+
+    //Method to set the view for the main menu and populate the location list for the card
+    @RequestMapping(value = "/menu/menu", method = RequestMethod.GET)
+    public ModelAndView menu() throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.setViewName("menu/menu");
+
+        // List<Location> locations = new ArrayList<Location>();
+
+        // locations = locationDAO.findAll();
+        List<Map<String,Object>> locations = locationDao.getLocationCount();
+
+        response.addObject("locations", locations);
+
+        return response;
+    }
+
 }

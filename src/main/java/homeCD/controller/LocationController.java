@@ -48,6 +48,7 @@ public class LocationController {
         return response;
     }
 
+    //Method to handle the add/update/delete of locations the action to occur is passed in as a path variable
     @RequestMapping(value = "/location/locationChange/{action}", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView locationChange(@Valid LocationFormBean form, BindingResult bindingResult,
                                        @PathVariable("action") String action) throws Exception {
@@ -168,21 +169,21 @@ public class LocationController {
 
         return response;
     }
-
-    @RequestMapping(value = "/menu/menu", method = RequestMethod.GET)
-    public ModelAndView menu() throws Exception {
-        ModelAndView response = new ModelAndView();
-        response.setViewName("menu/menu");
-
-       // List<Location> locations = new ArrayList<Location>();
-
-       // locations = locationDAO.findAll();
-        List<Map<String,Object>> locations = locationDAO.getLocationCount();
-
-        response.addObject("locations", locations);
-
-        return response;
-    }
+//
+//    @RequestMapping(value = "/menu/menu", method = RequestMethod.GET)
+//    public ModelAndView menu() throws Exception {
+//        ModelAndView response = new ModelAndView();
+//        response.setViewName("menu/menu");
+//
+//       // List<Location> locations = new ArrayList<Location>();
+//
+//       // locations = locationDAO.findAll();
+//        List<Map<String,Object>> locations = locationDAO.getLocationCount();
+//
+//        response.addObject("locations", locations);
+//
+//        return response;
+//    }
 
 
 

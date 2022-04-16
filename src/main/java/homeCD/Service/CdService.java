@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -35,6 +36,7 @@ public class CdService {
     private LocationDAO locationDao;
 
     //This is the main function of the Service as this function crosses all the entity tables
+    @Transactional
     public boolean cdAdd(CdEntryFormBean form, List<String> errorMsgs) {
         //Flow
 
@@ -98,7 +100,8 @@ public class CdService {
         performance.setComposerId(composerPK);
         performance.setPerformance(form.getWork());
         performance.setArtist(form.getArtist());
-        performanceDao.save(performance);
+//        performanceDao.save(performance);
+        performanceDao.addPerformance(cdPK,composerPK,form.getWork(),form.getArtist());
         return true;
         }
 

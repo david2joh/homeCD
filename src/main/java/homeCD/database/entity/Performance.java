@@ -13,13 +13,13 @@ import javax.persistence.*;
 public class Performance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "cd_id", insertable = false, nullable = false, updatable = false)
+    @Column(name = "cd_id",  nullable = false ,insertable = false, updatable = false)
     private Integer cdId;
 
-    @Column(name = "composer_id", insertable = false, nullable = false, updatable = false)
+    @Column(name = "composer_id",  nullable = false , insertable = false, updatable = false)
     private Integer composerId;
 
     @Column(name = "performance", nullable = false, length = 45)
@@ -30,14 +30,14 @@ public class Performance {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cd_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "cd_id" , nullable = false)
     private Cd cd;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "composer_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "composer_id" ,nullable = false)
     private Composer composer;
 
     public Composer getComposer() {
