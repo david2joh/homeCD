@@ -80,7 +80,7 @@ public class CdService {
         // Check to see if a record for this CD exists in the join table if so
         // check the performance a/ artist to see if a duplicate
         List<Performance> performances = performanceDao.findBycdIdAndcomposerId(cdPK,composerPK);
-        if (performances != null) { //iterate through the performances
+        if ((performances != null) && (performances.size() > 0)) { //iterate through the performances
             for (Performance performance : performances) {
                 if (performance.getPerformance().equalsIgnoreCase(form.getWork())
                         && performance.getArtist().equalsIgnoreCase(form.getArtist())) { //have a duplicate unwind

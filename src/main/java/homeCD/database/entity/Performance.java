@@ -15,29 +15,29 @@ public class Performance {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Basic
+
     @Column(name = "cd_id", insertable = false, nullable = false, updatable = false)
     private Integer cdId;
-    @Basic
+
     @Column(name = "composer_id", insertable = false, nullable = false, updatable = false)
     private Integer composerId;
-    @Basic
+
     @Column(name = "performance", nullable = false, length = 45)
     private String performance;
-    @Basic
+
     @Column(name = "artist", nullable = false, length = 45)
     private String artist;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cd_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cd_id")
     private Cd cd;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "composer_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "composer_id")
     private Composer composer;
 
     public Composer getComposer() {
