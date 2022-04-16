@@ -59,8 +59,6 @@ public class CdController {
     public ModelAndView cdAddSubmit(CdEntryFormBean form, BindingResult bindingResult , @PathVariable("id") Integer id) throws Exception {
         ModelAndView response = new ModelAndView();
 
-
-
         //ask binding result if it has errors
         if (bindingResult.hasErrors()) {
             List<String> errorMessages = new ArrayList<>();
@@ -81,17 +79,25 @@ public class CdController {
             return response;
         }
         //send the form information to the service to deal with
-        List<String> errors = new ArrayList();
-        boolean addedToDB = cdService.cdAdd(form,errors);
+       List<String> errors = new ArrayList();
+     Integer performancePK = cdService.cdAddPerformance(form,errors);
 
         //Service layer returned errors something went wrong try to alert the user
-        if (!addedToDB) {
-            response.addObject(errors);
+        if (performancePK <= 0) {
+            response.addObject("form", form);
             form.setId(-1);
             response.addObject("errors", errors);
         }
-
-        response.setViewName("redirect:/cd/cdAdd");
+        else {  //Good to go add the form info to the array lists
+            form.getComposers().add(form.getComposer());
+            form.getWorks().add(form.getWork());
+            form.getArtists().add(form.getArtist());
+            form.getPerformancePK().add(performancePK);
+            form.setId(form.getId());
+            response.addObject("performancePK",performancePK);
+        }
+        response.addObject("form", form);
+        response.setViewName("cd/cdAdd");
         return response;
     }
 

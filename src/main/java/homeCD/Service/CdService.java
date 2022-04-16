@@ -37,7 +37,7 @@ public class CdService {
 
     //This is the main function of the Service as this function crosses all the entity tables
     @Transactional
-    public boolean cdAdd(CdEntryFormBean form, List<String> errorMsgs) {
+    public Integer cdAddPerformance(CdEntryFormBean form, List<String> errorMsgs) {
         //Flow
 
         //
@@ -52,60 +52,66 @@ public class CdService {
         //
         //  Return successStatus and errorMsg back to the CdController
         //
-
+        Integer result = 0;
         Cd cd = null;
         Composer composer = null;
         cd = cdDao.findCdByLabelAndAndCatalogNumber(form.getLabel(),form.getCatalogNumber());
-        if (cd == null) {  // new entry
-            cd = new Cd();
-            cd.setLabel(form.getLabel());
-            cd.setCatalogNumber(form.getCatalogNumber());
-            //get the locationId from the name -- already validated to exist
-            Location location = locationDao.findByLocationName(form.getLocationName());
-            cd.setLocationId(location.getId());
-            //write cd info to the db
-            cd = cdDao.save(cd);
-        }
 
         // cd already exists check on the composer table for the ID
         composer = composerDao.findByComposerName(form.getComposer());
-        if ( composer == null) {  //new composer
-            composer = new Composer();
-            composer.setComposerName(form.getComposer());
-            composer = composerDao.save(composer);
-        }
-
-        //Get the PKs of the CD and Composer
-        Integer cdPK = cd.getId();
-        Integer composerPK = composer.getId();
 
         // Check to see if a record for this CD exists in the join table if so
-        // check the performance a/ artist to see if a duplicate
-        List<Performance> performances = performanceDao.findBycdIdAndcomposerId(cdPK,composerPK);
-        if ((performances != null) && (performances.size() > 0)) { //iterate through the performances
-            for (Performance performance : performances) {
-                if (performance.getPerformance().equalsIgnoreCase(form.getWork())
-                        && performance.getArtist().equalsIgnoreCase(form.getArtist())) { //have a duplicate unwind
-                    cdDao.delete(cd);
-                    composerDao.delete(composer);
-                    errorMsgs.add("Duplicate performance found on this CD  Not added");
-                    form.setId(cdPK);
-                    return false;
+        // check the performance and artist to see if a duplicate
+        if ( cd != null && composer != null ){
+
+            //Get the PKs of the CD and Composer
+            Integer cdPK = cd.getId();
+            Integer composerPK = composer.getId();
+
+            List<Performance> performances = performanceDao.findBycdIdAndcomposerId(cdPK, composerPK);
+            if ((performances != null) && (performances.size() > 0)) { //iterate through the performances
+                for (Performance performance : performances) {
+                    if (performance.getPerformance().equalsIgnoreCase(form.getWork())
+                            && performance.getArtist().equalsIgnoreCase(form.getArtist())) { //have a duplicate unwind
+                        errorMsgs.add("Duplicate performance found on this CD  Not added");
+                        result = performance.getId();
+                        form.setId(cdPK);
+                        return result;
+                    }
                 }
             }
         }
-        //Add a performance into the DB
+         if (cd == null) {  // new entry
+                cd = new Cd();
+                cd.setLabel(form.getLabel());
+                cd.setCatalogNumber(form.getCatalogNumber());
+                //get the locationId from the name -- already validated to exist
+                Location location = locationDao.findByLocationName(form.getLocationName());
+                cd.setLocationId(location.getId());
+                //write cd info to the db
+                cd = cdDao.save(cd);
+        }
+
+        if ( composer == null) {  //new composer
+                composer = new Composer();
+                composer.setComposerName(form.getComposer());
+                composer = composerDao.save(composer);
+            }
+
+            //Add a performance into the DB
         Performance performance = new Performance();
-//        performance.setCdId(cdPK);
-//        performance.setComposerId(composerPK);
+        //        performance.setCdId(cdPK);
+        //        performance.setComposerId(composerPK);
         performance.setPerformance(form.getWork());
         performance.setArtist(form.getArtist());
         performance.setCd(cd);
         performance.setComposer(composer);
-        performanceDao.save(performance);
-//        performanceDao.addPerformance(cdPK,composerPK,form.getWork(),form.getArtist());
-        return true;
-        }
+        performance = performanceDao.save(performance);
+        //Reset this in the even of an add
+        form.setId(cd.getId());
+        //        performanceDao.addPerformance(cdPK,composerPK,form.getWork(),form.getArtist());
+        return performance.getId();
+    }
 
 
 

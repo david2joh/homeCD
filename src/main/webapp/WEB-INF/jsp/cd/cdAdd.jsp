@@ -3,7 +3,7 @@
 <jsp:include page="../include/navbar.jsp"/>
 
 <h1>I'm at cdAdd</h1>
-
+${form}<br>
 <form class="" id="myCdAddForm" action="/cd/cdAddSubmit/${form.id}" method="post">
  <input type="hidden" name="id" value="${form.id}">
  CD label     <input type="text" id="userName" placeholder="Label" name="label" value="${form.label}"/>
@@ -25,4 +25,9 @@
            <div style="color:red;">${error.getDefaultMessage()}</div>
  </c:forEach>
 
+<%--<br><br><c:forEach> items ='${form.composers}' var= "composer" varStatus ="i">--%>
+<%--${composer}&nbsp${form.works[i.index]}&nbsp${form.artists[i.index]}--%>
+<%--</c:forEach>--%>
+<br><br>${form}
+<%--<br><br>${performance}--%>
 <%@include file="../include/footer.jsp"  %>
