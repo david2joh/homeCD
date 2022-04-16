@@ -16,11 +16,11 @@ public class Performance {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "cd_id",  nullable = false ,insertable = false, updatable = false)
-    private Integer cdId;
-
-    @Column(name = "composer_id",  nullable = false , insertable = false, updatable = false)
-    private Integer composerId;
+//    @Column(name = "cd_id",  nullable = false ,insertable = false, updatable = false)
+//    private Integer cdId;
+//
+//    @Column(name = "composer_id",  nullable = false , insertable = false, updatable = false)
+//    private Integer composerId;
 
     @Column(name = "performance", nullable = false, length = 45)
     private String performance;

@@ -15,7 +15,7 @@ public interface PerformanceDAO extends JpaRepository<Performance, Long> {
 
     public Performance findById(@Param("id") Integer id);
 
-    @Query(value = "Select p from Performance p Where p.cdId=:cdId AND p.composerId=:composerId")
+    @Query(value = "Select * from performances p Where p.cd_id=:cdId AND p.composer_id=:composerId" ,nativeQuery = true)
     public List<Performance> findBycdIdAndcomposerId(@Param("cdId") Integer cdId, @Param("composerId") Integer composerId);
 
     @Modifying

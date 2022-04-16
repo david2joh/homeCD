@@ -96,12 +96,14 @@ public class CdService {
         }
         //Add a performance into the DB
         Performance performance = new Performance();
-        performance.setCdId(cdPK);
-        performance.setComposerId(composerPK);
+//        performance.setCdId(cdPK);
+//        performance.setComposerId(composerPK);
         performance.setPerformance(form.getWork());
         performance.setArtist(form.getArtist());
-//        performanceDao.save(performance);
-        performanceDao.addPerformance(cdPK,composerPK,form.getWork(),form.getArtist());
+        performance.setCd(cd);
+        performance.setComposer(composer);
+        performanceDao.save(performance);
+//        performanceDao.addPerformance(cdPK,composerPK,form.getWork(),form.getArtist());
         return true;
         }
 
