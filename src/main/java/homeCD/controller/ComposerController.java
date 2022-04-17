@@ -73,10 +73,9 @@ public class ComposerController {
             //because this is an error we do not want to processs to create/update/delete a composer in the DB
             // We want to show the same model that we are already on  list
             response.setViewName("redirect:/composer/list");
-           return response;
+            return response;
         }
 
-        Composer dbComposer = new Composer();
         Composer composer = composerDao.findByComposerName(form.getComposerName());
         if (action.equalsIgnoreCase("update") && (form.getId() != 0)) {
             composer = composerDao.findById(form.getId());
@@ -87,8 +86,7 @@ public class ComposerController {
                 composer.setComposerName(form.getComposerName());
                 composerDao.save(composer);
                 log.debug("Composer creation = " + form.toString());
-            }
-            else if (action.equalsIgnoreCase("update")) {
+            } else if (action.equalsIgnoreCase("update")) {
                 //Already know that composer name is valid so just update
                 log.debug("Composer name changed from : " + composer.getComposerName() +
                         " to " + form.getComposerName());
@@ -96,8 +94,7 @@ public class ComposerController {
                 composerDao.save(composer);
                 response.setViewName("redirect:/composer/list");
                 return response;
-            }
-            else {  //wow someone spoofed us just go back reseting the form
+            } else {  //wow someone spoofed us just go back reseting the form
                 log.debug("Composer creation with bad inputs = " + form.toString());
                 response.setViewName("redirect:/composer/list");
             }
@@ -111,12 +108,10 @@ public class ComposerController {
                 if (composer.getPerformances().size() == 0) {
                     composerDao.delete(composer);
                     log.debug("Composer deleted  : " + composer.getComposerName());
-                }
-                else {
+                } else {
                     log.warn("Composer delete attempted on Non Empty Composer :" + composer.getComposerName());
                 }
-            }
-            else {
+            } else {
                 if (action.equalsIgnoreCase("update")) {
                     //Already know that composer name is valid so just update
                     log.debug("Composer name changed from : " + composer.getComposerName() +
@@ -130,4 +125,42 @@ public class ComposerController {
         return response;
     }
 
-}
+
+//    @RequestMapping(value = "/composer/composerDetails/{composerId}", method = RequestMethod.GET)
+//    public ModelAndView cDetails(@PathVariable("composerId") Integer composerId) throws Exception {
+        @RequestMapping(value = "/composer/composerDetails", method = RequestMethod.GET)
+        public ModelAndView cDetails(@RequestParam("composerId") Integer composerId) throws Exception {
+            ModelAndView response = new ModelAndView();
+        response.setViewName("composer/composerDetails");
+
+        Map<String,Object> result = new HashMap<>();
+        List<CdDetailsBean> cdDetails = new LinkedList<>();
+        Composer composer = composerDao.findById(composerId);
+        List<Map<String,Object>> results =  composerDao.getCDdetailsByComposerId((composerId));
+        if (result != null ) {
+            for (int i = 0; i < results.size(); i++) {
+                CdDetailsBean cdDetail = new CdDetailsBean();
+                result = results.get(i);
+                cdDetail.setId((Integer) result.get("cdId"));
+                cdDetail.setLocationName((String) result.get("locationName"));
+                cdDetail.setComposer((String) result.get("composerName"));
+                cdDetail.setArtist((String) result.get("artist"));
+                cdDetail.setPerformance((String) result.get("performance"));
+                cdDetails.add(cdDetail);
+            }
+            response.addObject("cdDetails", cdDetails);
+        }
+
+      /*
+        Seeding the model with a form id in this case spring is thorwing errors
+         */
+       ComposerFormBean form = new ComposerFormBean();
+        form.setId(composerId);
+        form.setComposerName(composer.getComposerName());
+
+        response.addObject("form", form);
+
+        return response;
+    }
+
+} //class

@@ -27,12 +27,13 @@ public interface ComposerDAO extends JpaRepository<Composer, Long> {
          (@Param("composerName") String composerName);
 
     @Query(nativeQuery = true,
-            value= "select location_name as locationName, composers.composer_name as composerName, "
-                    + "performances.performance as performance, performances.artist as artist from cds "
+            value= "select cds.id as cdId, performances.performance as performance,   "
+                    + " performances.artist as artist, location_name as locationName from cds "
                     + " join performances on cds.id=performances.cd_id "
                     + " join composers on performances.composer_id = composers.id "
                     + " join locations on locations.id = cds.location_id "
-                    + " where composers.id=:composerId")
-    public List<Map<String,Object>> getCDdetailsByComposerID(@Param("composerId") Integer composerId);
+                    + " where composers.id=:composerId"
+                    + " order by performances.performance")
+    public List<Map<String,Object>> getCDdetailsByComposerId(@Param("composerId") Integer composerId);
 
 }

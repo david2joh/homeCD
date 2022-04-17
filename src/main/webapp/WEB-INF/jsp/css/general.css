@@ -9,3 +9,8 @@
     height: 30vh !important;
     object-fit: cover;
 }
+
+.myScrollable {
+    height: 300px;
+    overflow-y: scroll;
+}

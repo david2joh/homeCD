@@ -4,7 +4,6 @@ import homeCD.formbean.CdDetailsBean;
 import homeCD.formbean.LocationFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.UsesSunHttpServer;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -25,7 +24,7 @@ import java.util.*;
 public class LocationController {
 
     @Autowired
-    LocationDAO locationDAO;
+    LocationDAO locationDao;
 
     // List  Locations for the intro location page
     @RequestMapping(value = "/location/list", method = RequestMethod.GET)
@@ -35,7 +34,7 @@ public class LocationController {
 
         List<Location> locations = new ArrayList<>();
 
-        locations = locationDAO.findAll();
+        locations = locationDao.findAll();
 
         response.addObject("locations", locations);
         /*
@@ -77,15 +76,15 @@ public class LocationController {
         }
 
         Location dbLocation = new Location();
-        Location location = locationDAO.findByLocationName(form.getLocationName());
+        Location location = locationDao.findByLocationName(form.getLocationName());
         if (action.equalsIgnoreCase("update") && (form.getId() != 0)) {
-            location = locationDAO.findById(form.getId());
+            location = locationDao.findById(form.getId());
         }
         if (location == null) {
             if (action.equalsIgnoreCase("add")) {
                 location = new Location();
                 location.setLocationName(form.getLocationName());
-                locationDAO.save(location);
+                locationDao.save(location);
                 log.debug("Location creation = " + form.toString());
             }
             else if (action.equalsIgnoreCase("update")) {
@@ -93,7 +92,7 @@ public class LocationController {
                 log.debug("Location name changed from : " + location.getLocationName() +
                         " to " + form.getLocationName());
                 location.setLocationName(form.getLocationName());
-                locationDAO.save(location);
+                locationDao.save(location);
                 response.setViewName("redirect:/location/list");
                 return response;
             }
@@ -109,7 +108,7 @@ public class LocationController {
             //by spoofing the request
             if (action.equalsIgnoreCase("delete")) {
                 if (location.getCds().size() == 0) {
-                    locationDAO.delete(location);
+                    locationDao.delete(location);
                     log.debug("Location deleted  : " + location.getLocationName());
                 }
                 else {
@@ -122,7 +121,7 @@ public class LocationController {
                     log.debug("Location name changed from : " + location.getLocationName() +
                             " to " + form.getLocationName());
                     location.setLocationName(form.getLocationName());
-                    locationDAO.save(location);
+                    locationDao.save(location);
                     lDetails(location.getId());
                 }
             }
@@ -138,13 +137,13 @@ public class LocationController {
         ModelAndView response = new ModelAndView();
         response.setViewName("location/details");
 
-        Location location = locationDAO.findById(locationId);
+        Location location = locationDao.findById(locationId);
 
         response.addObject("location", location);
 
         Map<String,Object> result = new HashMap<>();
         List<CdDetailsBean> cdDetails = new LinkedList<>();
-        List<Map<String,Object>> results =  locationDAO.getCDdetailsBylocationId((locationId));
+        List<Map<String,Object>> results =  locationDao.getCDdetailsBylocationId((locationId));
         if (result != null ) {
             for (int i = 0; i < results.size(); i++) {
                 CdDetailsBean cdDetail = new CdDetailsBean();

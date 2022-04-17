@@ -14,19 +14,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--<link rel="stylesheet" type="text/css" href="../css/headergeneral.css">--%>
 <link href="<c:url value="../../../pub/css/headergeneral.css"/>" rel="stylesheet" type="text/css"/>
-<%--<style>--%>
-<%--    .gradient-custom {--%>
-<%--        background: linear-gradient(to bottom right,--%>
-<%--        rgb(147, 235, 251),--%>
-<%--        rgb(120, 106, 245))--%>
-<%--    }--%>
-<%--    .card-img-top {--%>
-<%--        width: 100% !important;--%>
-<%--        height: 30vh !important;--%>
-<%--        object-fit: cover;--%>
-<%--    }--%>
 
-<%--</style>--%>
 <body class="gradient-custom">
 
 <container>

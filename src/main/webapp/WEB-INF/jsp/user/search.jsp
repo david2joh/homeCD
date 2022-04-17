@@ -80,4 +80,4 @@
     </div>
 </section>
 
-<%--<jsp:include page="../include/footer.jsp" />--%>
+<jsp:include page="../include/footer.jsp" />

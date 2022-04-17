@@ -29,19 +29,11 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                             </tr>
                             <c:forEach items="${composers}" var="composer" varStatus="i">
                                 <tr scope="row">
-                                    <td><a href="/composer/details?composerId=${composer.id}" />
+                                    <td><a href="/composer/composerDetails?composerId=${composer.id}" />
                                         <c:out value="${i.getCount()}" />
                                     </td>
                                     <td>${composer.composerName}</td>
                                     <td>${composer.performances.size()}</td>
-                                        <%--                                    <td>--%>
-                                        <%--                                        <form action="/user/composerChange/delete" id="deleteForm1">--%>
-                                        <%--                                            <input type="hidden" name="composerName" id="deleteComposer1"--%>
-                                        <%--                                                   value=${composer.composerName}>--%>
-                                        <%--                                            <input class="btn btn-outline-primary btn-md" type="submit"--%>
-                                        <%--                                                   value="delete" />--%>
-                                        <%--                                        </form>--%>
-                                        <%--                                    </td>--%>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -76,7 +68,5 @@ max two items per row so each item in a row set to col-6 or col-12 -->
         </div>
     </div>
 </section>
-
-${composers}
 
 <jsp:include page="../include/footer.jsp" />
