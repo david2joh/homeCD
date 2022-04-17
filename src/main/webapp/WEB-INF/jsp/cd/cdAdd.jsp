@@ -25,9 +25,23 @@
            <div style="color:red;">${error.getDefaultMessage()}</div>
  </c:forEach>
 
-<%--<br><br><c:forEach> items ='${form.composers}' var= "composer" varStatus ="i">--%>
-<%--${composer}&nbsp${form.works[i.index]}&nbsp${form.artists[i.index]}--%>
-<%--</c:forEach>--%>
+
+ <div class="myScrollable" style="height: 300px; overflow-y: scroll;">
+   <table class="table table-bordered table-striped" data-virtual-scroll="true">
+   <tr scope="row">
+    <th>Composer</th>
+    <th>Work</th>
+    <th>Artist</th>
+   </tr>
+   <c:forEach var="composer"  items="${form.composers}" varStatus="i">
+    <tr scope="row">
+     <td>${composer}</td>
+     <td>${form.works[i.index]}</td>
+     <td>${form.artists[i.index]}</td>
+      </tr>
+   </c:forEach>
+  </table>
+ </div>
 <br><br>${form}
 <%--<br><br>${performance}--%>
 <%@include file="../include/footer.jsp"  %>
