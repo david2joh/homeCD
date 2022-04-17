@@ -89,6 +89,4 @@ max two items per row so each item in a row set to col-6 or col-12 -->
     </div>
 </section>
 
-${locations}
-
 <jsp:include page="../include/footer.jsp" />

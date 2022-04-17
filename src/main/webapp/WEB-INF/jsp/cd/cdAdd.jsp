@@ -3,7 +3,7 @@
 <jsp:include page="../include/navbar.jsp"/>
 
 <h1>I'm at cdAdd</h1>
-${form}<br>
+
 <form class="" id="myCdAddForm" action="/cd/cdAddSubmit/${form.id}" method="post">
  <input type="hidden" name="id" value="${form.id}">
  CD label     <input type="text" id="userName" placeholder="Label" name="label" value="${form.label}"/>

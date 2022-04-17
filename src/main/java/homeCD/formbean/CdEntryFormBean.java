@@ -33,7 +33,7 @@ public class CdEntryFormBean {
     @NotBlank(message = "Artist Name is required")
     private String artist;
 
-    @LocationNameFound(message="Location does not Exist")
+    @LocationNameFound(message="Location Does Not Exist")
     @NotBlank(message = "Location Name is required")
     private String locationName;
 

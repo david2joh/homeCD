@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Data
@@ -107,8 +109,19 @@ public class CdService {
         performance.setCd(cd);
         performance.setComposer(composer);
         performance = performanceDao.save(performance);
-        //Reset this in the even of an add
+        //Reset this in the event of an add
         form.setId(cd.getId());
+        //Add the performances onto the form lists
+        Set<Performance> performances = cd.getPerformances();
+         if ((performances != null) && (performances.size() > 0))
+        {
+            for (Performance p : performances) {
+                form.getPerformancePK().add((p.getId()));
+                form.getComposers().add(p.getComposer().getComposerName());
+                form.getWorks().add(p.getPerformance());
+                form.getArtists().add(p.getArtist());
+            }
+        }
         //        performanceDao.addPerformance(cdPK,composerPK,form.getWork(),form.getArtist());
         return performance.getId();
     }

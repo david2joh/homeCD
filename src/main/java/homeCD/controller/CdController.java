@@ -45,9 +45,11 @@ public class CdController {
         response.setViewName("cd/cdAdd");
 
         /*
-        Seeding the model with an empty form
+        Seeding the model with an empty form if necessary
          */
-        form = new CdEntryFormBean();
+        if (form == null || form.getId() == 0) {
+            form = new CdEntryFormBean();
+        }
         response.addObject("form", form);
 
         response.setViewName("cd/cdAdd");
@@ -79,8 +81,8 @@ public class CdController {
             return response;
         }
         //send the form information to the service to deal with
-       List<String> errors = new ArrayList();
-     Integer performancePK = cdService.cdAddPerformance(form,errors);
+        List<String> errors = new ArrayList();
+        Integer performancePK = cdService.cdAddPerformance(form,errors);
 
         //Service layer returned errors something went wrong try to alert the user
         if (performancePK <= 0) {

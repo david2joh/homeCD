@@ -15,7 +15,7 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                     <!-- Set a nice image at the top -->
                     <img src="../pub/img/bach_sm.jpg" class="w-100 card-img-top" alt="Composer Details"
-                         style="border-radius: 15px 15px 0px 0px" ;>
+                         style="border-radius: 15px 15px 0px 0px;" >
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">COMPOSERS</h3>
 
