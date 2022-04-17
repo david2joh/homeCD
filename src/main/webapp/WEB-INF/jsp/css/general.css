@@ -1,7 +1,8 @@
 .gradient-custom {
     background: linear-gradient(to bottom right,
     rgb(147, 235, 251),
-    rgb(120, 106, 245))
+    rgb(120, 106, 245));
+    height : 100vh
 }
 
 .card-img-top {
