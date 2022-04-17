@@ -1,9 +1,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="../../../pub/html/header.html" %>
-<%--<jsp:include page="../include/header.jsp" />--%>
+<%--<%@include file="../../../pub/html/header.html" %>--%>
+<jsp:include page="../include/header.jsp" />
 <jsp:include page="../include/navbar.jsp" />
 <link rel="stylesheet" href="../css/general.css">
+<style>
+body {
+    background: linear-gradient(to bottom right,
+    rgb(147, 235, 251),
+    rgb(120, 106, 245))
+}
 
+.card-img-top {
+    width: 100% !important;
+    height: 30vh !important;
+    object-fit: cover;
+}
+
+.myScrollable {
+    height: 300px;
+    overflow-y: scroll;
+}
+
+
+
+</style>
 
 <section class="gradient-custom vh-200">
 
@@ -19,9 +39,10 @@
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">${form.composerName}</h3>
                         <!-- row #1 with first_name and last_name each place in 1/2 of the card with a bootstrtrap bottom margin (mb-4)-->
-                        <div class="row">
-                            <div class="col-md-12 mb-4">
-                                <table class="table">
+<%--                        <div class="row">--%>
+<%--                            <div class="col-md-12 mb-4">--%>
+                           <div class="myScrollable" style="height: 300px; overflow-y: scroll;">
+                                <table class="table" data-virtual-scroll="true">
                                     <tr scope="row">
                                         <th>Id</th>
                                         <th>Work</th>
@@ -38,7 +59,7 @@
                                     </c:forEach>
                                 </table>
                             </div>
-                        </div>
+<%--                        </div>--%>
                         <!-- DIV SOUP  -->
                     </div>
                 </div>
