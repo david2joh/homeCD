@@ -8,8 +8,10 @@ import homeCD.database.entity.Cd;
 import homeCD.database.entity.Composer;
 import homeCD.database.entity.Location;
 import homeCD.database.entity.Performance;
+import homeCD.formbean.CdAddFormBean;
 import homeCD.formbean.CdEntryFormBean;
 import homeCD.formbean.CdMultiEntryFormBean;
+import homeCD.formbean.PerformanceEntryFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,9 +59,8 @@ public class CdController {
         return response;
     }
 
-    // Initial blank form
     @RequestMapping(value = "/cd/cdAddSubmit", method = RequestMethod.POST)
-    public ModelAndView cdAddSubmit(CdEntryFormBean form, BindingResult bindingResult , @RequestParam(value = "id" , required = false) Integer id)
+    public ModelAndView cdAddSubmit(@Valid CdEntryFormBean form, BindingResult bindingResult , @RequestParam(value = "id" , required = false) Integer id)
             throws Exception {
         ModelAndView response = new ModelAndView();
 
@@ -70,10 +72,10 @@ public class CdController {
                 errorMessages.add(error.getDefaultMessage());
                 log.info(((FieldError) error).getField() + " " + error.getDefaultMessage());
             }
-            //Add the information that was in the form back to the form when erroring
+            //Add the information that was in the form back to the form when error
             //so the user does not have to re-enter the information
             response.addObject("form", form);
-            //add the errror list to the model
+            //add the error list to the model
             response.addObject("errorMessages", errorMessages);
             response.addObject("bindingResult", bindingResult);
 
@@ -82,7 +84,7 @@ public class CdController {
             return response;
         }
         //send the form information to the service to deal with
-        List<String> errors = new ArrayList();
+        List<String> errors = new ArrayList<>();
         Integer performancePK = cdService.cdAddPerformance(form,errors);
 
         if (errors.size() > 0) {
@@ -105,5 +107,73 @@ public class CdController {
         return response;
     }
 
+    @RequestMapping(value = "/cd/cdAddDisk", method = {RequestMethod.POST, RequestMethod.GET})
+    public ModelAndView cdAddDisk(@Valid CdAddFormBean form, BindingResult bindingResult , @RequestParam(value = "id" , required = false) Integer id)
+            throws Exception {
+        ModelAndView response = new ModelAndView();
 
-}
+        //ask binding result if it has errors
+        if (bindingResult.hasErrors()) {
+            List<String> errorMessages = new ArrayList<>();
+
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                errorMessages.add(error.getDefaultMessage());
+                log.info(((FieldError) error).getField() + " " + error.getDefaultMessage());
+            }
+            //Add the information that was in the form back to the form when error
+            //so the user does not have to re-enter the information
+            response.addObject("form", form);
+            //add the error list to the model
+            response.addObject("errorMessages", errorMessages);
+            response.addObject("bindingResult", bindingResult);
+
+            //Send the form info back to the view
+            response.setViewName("cd/cdAdd");
+            return response;
+        }
+        //send the form information to the service to deal with
+        List<String> errors = new ArrayList<>();
+        Cd cd = cdService.cdAddDisk(form,errors);
+
+        if (errors.size() > 0) {
+            //Service layer returned errors something went wrong try to alert the user
+            response.addObject("form", form);
+            response.addObject("errors", errors);
+            response.setViewName("cd/cdAdd");
+            return response;
+        }
+        else {  //Good to go add the info to the new form
+            PerformanceEntryFormBean pform = new PerformanceEntryFormBean();
+            form.setId(cd.getId());
+            pform.setLabel(form.getLabel());
+            pform.setCatalogNumber(form.getCatalogNumber());
+            pform.setLocationName(form.getLocationName());
+            response.addObject("errors", errors);
+            response.addObject("form", pform);
+        }
+
+        response.setViewName("cd/cdAddPerformance");
+        return response;
+    }
+
+
+
+    @RequestMapping(value = "/cd/cdModifyPerformance", method = RequestMethod.POST)
+    public ModelAndView cdModifyPerformance(CdEntryFormBean form, BindingResult bindingResult ,
+                                            @RequestParam(value = "id" , required = false) Integer id)
+            throws Exception {
+        ModelAndView response = new ModelAndView();
+        response.addObject("form", form);
+        //add the errror list to the model
+        response.addObject("bindingResult", bindingResult);
+        List<String> errorMessages = new ArrayList<>();
+        response.addObject("errorMessages", errorMessages);
+
+
+        //Send the form info back to the view
+        response.setViewName("redirect:/cd/cdAdd");
+        return response;
+    }
+
+
+    }

@@ -9,6 +9,7 @@ import homeCD.database.entity.Cd;
 import homeCD.database.entity.Composer;
 import homeCD.database.entity.Location;
 import homeCD.database.entity.Performance;
+import homeCD.formbean.CdAddFormBean;
 import homeCD.formbean.CdEntryFormBean;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +60,7 @@ public class CdService {
         Composer composer = null;
         cd = cdDao.findCdByLabelAndAndCatalogNumber(form.getLabel(),form.getCatalogNumber());
 
-        // cd already exists check on the composer table for the ID
+        //check on the composer table for the ID
         composer = composerDao.findByComposerName(form.getComposer());
 
         // Check to see if a record for this CD exists in the join table if so
@@ -127,6 +128,25 @@ public class CdService {
         return performance.getId();
     }
 
+    //Add a cd into the DB if not there
+    public Cd cdAddDisk(CdAddFormBean form, List<String> errorMsgs) {
+        Cd cd = null;
+        Composer composer = null;
+        cd = cdDao.findCdByLabelAndAndCatalogNumber(form.getLabel(),form.getCatalogNumber());
+        if (cd == null) {  // new entry
+            cd = new Cd();
+            cd.setLabel(form.getLabel());
+            cd.setCatalogNumber(form.getCatalogNumber());
+            //get the locationId from the name -- already validated to exist
+            Location location = locationDao.findByLocationName(form.getLocationName());
+            cd.setLocationId(location.getId());
+            //write cd info to the db
+            cd = cdDao.save(cd);
+        } else {  //Tried to enter a cd that exists
+            errorMsgs.add("Attempt to enter an existing CD : Not added");
+        }
+        return cd;
+    }
 
 
 } //class
