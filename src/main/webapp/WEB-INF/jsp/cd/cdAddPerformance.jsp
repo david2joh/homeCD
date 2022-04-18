@@ -3,7 +3,7 @@
 <jsp:include page="../include/navbar.jsp" />
 <link rel="stylesheet" href="../css/general.css">
 
-<div class="gradient-custom" style="height: 100vh">
+<div class="gradient-custom" style="height: 125vh">
 
  <div class="container py-5 h-100">
   <!-- Use the bootstrap semantics  each field is assigned a row, each row centered ,
@@ -81,8 +81,8 @@ max two items per row so each item in a row set to col-6 or col-12 -->
           </c:forEach>
          </div>
         </div>
-         <div class="col-md-4 mb-2">
-        <div class="form-outline">
+        <div class="col-md-4 mb-2">
+         <div class="form-outline">
           <input type="text" id="performance" class="form-control form-control-sm"
                  placeholder="performance" name="performance" value="${form.performance}"
                  required />
@@ -90,7 +90,8 @@ max two items per row so each item in a row set to col-6 or col-12 -->
           <div id="validationperformanceFeedback" class="invalid-feedback">
            Please enter a Performance/Work Name
           </div>
-          <c:forEach items='${bindingResult.getFieldErrors("performance")}' var="error">
+          <c:forEach items='${bindingResult.getFieldErrors("performance")}'
+                     var="error">
            <div style="color:red;">${error.getDefaultMessage()}</div>
           </c:forEach>
          </div>
@@ -110,7 +111,8 @@ max two items per row so each item in a row set to col-6 or col-12 -->
         </div>
         <div class="row">
          <div class="col-md-3 mt-4 pt-2">
-          <input class="btn btn-outline-primary btn-md" id="mySubmitBtn" type="submit" value="Submit" />
+          <input class="btn btn-outline-primary btn-md" id="mySubmitBtn" type="submit"
+                 value="Submit" />
          </div>
          <div class="col-md-3 mt-4 pt-2">
          </div>
@@ -123,10 +125,25 @@ max two items per row so each item in a row set to col-6 or col-12 -->
       <c:forEach items='${errors}' var="error">
        <div style="color:red;">${error}</div>
       </c:forEach>
+      <br>
+      <div class="myScrollable" style="height: 300px; overflow-y: scroll;">
+       <table class="table table-bordered table-striped" data-virtual-scroll="true">
+        <col style="width: 15%" />
+        <col style="width: 35%" />
+        <col style="width: 30%" />
+        <col style="width: 15%" />
+        <tr scope="row">
+         <th class="col-1-md">Composer</th>
+         <th class="col-4-md">Work</th>
+         <th class="col-3-md">Artist</th>
+         <th></th>
+        </tr>
+       </table>
      </div>
     </div>
    </div>
   </div>
+
  </div>
 </div>
 <%@include file="../include/footer.jsp" %>
