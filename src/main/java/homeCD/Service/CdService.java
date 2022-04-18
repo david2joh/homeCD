@@ -70,7 +70,8 @@ public class CdService {
             Integer cdPK = cd.getId();
             Integer composerPK = composer.getId();
 
-            List<Performance> performances = performanceDao.findBycdIdAndcomposerId(cdPK, composerPK);
+//            List<Performance> performances = performanceDao.findBycdIdAndcomposerId(cdPK, composerPK);
+            Set<Performance> performances = cd.getPerformances();
             if ((performances != null) && (performances.size() > 0)) { //iterate through the performances
                 for (Performance performance : performances) {
                     if (performance.getPerformance().equalsIgnoreCase(form.getWork())

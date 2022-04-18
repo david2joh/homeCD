@@ -4,6 +4,7 @@ import homeCD.database.entity.Composer;
 import homeCD.database.entity.Performance;
 import homeCD.validation.LocationNameFound;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class CdEntryFormBean {
 
     @LocationNameFound(message="Location Does Not Exist")
     @NotBlank(message = "Location Name is required")
+    @Length(max=15,min=3,message="Location Name must be between 3 and 15 character")
     private String locationName;
 
     //Used to circumvent a set of DB lookups while we are creating the CD

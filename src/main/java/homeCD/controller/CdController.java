@@ -57,8 +57,9 @@ public class CdController {
     }
 
     // Initial blank form
-    @RequestMapping(value = "/cd/cdAddSubmit/{id}", method = RequestMethod.POST)
-    public ModelAndView cdAddSubmit(CdEntryFormBean form, BindingResult bindingResult , @PathVariable("id") Integer id) throws Exception {
+    @RequestMapping(value = "/cd/cdAddSubmit", method = RequestMethod.POST)
+    public ModelAndView cdAddSubmit(CdEntryFormBean form, BindingResult bindingResult , @RequestParam(value = "id" , required = false) Integer id)
+            throws Exception {
         ModelAndView response = new ModelAndView();
 
         //ask binding result if it has errors
@@ -84,19 +85,20 @@ public class CdController {
         List<String> errors = new ArrayList();
         Integer performancePK = cdService.cdAddPerformance(form,errors);
 
-        //Service layer returned errors something went wrong try to alert the user
-        if (performancePK <= 0) {
+        if (errors.size() > 0) {
+            //Service layer returned errors something went wrong try to alert the user
             response.addObject("form", form);
             form.setId(-1);
             response.addObject("errors", errors);
         }
-        else {  //Good to go add the form info to the array lists
+        else {  //Good to go add the new form info to the array lists
             form.getComposers().add(form.getComposer());
             form.getWorks().add(form.getWork());
             form.getArtists().add(form.getArtist());
             form.getPerformancePK().add(performancePK);
             form.setId(form.getId());
             response.addObject("performancePK",performancePK);
+            response.addObject("errors", errors);
         }
         response.addObject("form", form);
         response.setViewName("cd/cdAdd");
