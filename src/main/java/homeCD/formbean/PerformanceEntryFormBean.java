@@ -19,7 +19,7 @@ public class PerformanceEntryFormBean {
     private String composer;
 
     @NotBlank(message = "Performance Name is required")
-    private String work;
+    private String performance;
 
     @NotBlank(message = "Artist Name is required")
     private String artist;

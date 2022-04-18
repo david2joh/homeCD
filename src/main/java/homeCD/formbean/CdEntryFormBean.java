@@ -19,7 +19,7 @@ public class CdEntryFormBean {
 
     private Integer id = 0;
 
-    @NotBlank(message = "Label Name is required")
+    @NotBlank(message = "Label/Publisher Name is required")
     private String label;
 
     @NotBlank(message = "Catalog Number is required")

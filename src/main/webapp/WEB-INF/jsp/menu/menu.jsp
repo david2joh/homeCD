@@ -66,8 +66,6 @@
             </div>
         </div>
     </div>
-
 </div>
-
 
 <%@include file="../../../pub/html/footer.html" %>

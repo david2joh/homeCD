@@ -2,11 +2,15 @@ package homeCD.validation;
 
 import homeCD.database.DAO.UserDAO;
 import homeCD.database.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+@Slf4j
+@Component
 public class UserNameUniqueImpl implements ConstraintValidator<UserNameUnique, String> {
 
     @Autowired
