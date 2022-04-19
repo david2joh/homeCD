@@ -36,7 +36,7 @@ public class Cd {
     private Location location;
 
     @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "cd", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cd", fetch = FetchType.EAGER)
     private Set<Performance> performances = new HashSet<>();
 
 }

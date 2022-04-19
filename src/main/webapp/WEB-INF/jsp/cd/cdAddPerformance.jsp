@@ -17,8 +17,13 @@ max two items per row so each item in a row set to col-6 or col-12 -->
           style="border-radius: 15px 15px 0px 0px" ;>
      <div class="card-body p-4 p-md-5">
       <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Add Performance</h3>
+      ${form}
       <form class="" id="myCdPerformance" action="/cd/cdAddPerformance" method="post">
        <input type="hidden" name="id" value="${form.id}">
+       <input type="hidden" name="label" value="${form.label}">
+       <input type="hidden" name="catalogNumber" value="${form.catalogNumber}">
+       <input type="hidden" name="locationName" value="${form.locationName}">
+<%--       <input type="hidden" name="cd" value="${form.cd}">--%>
        <!-- row #1 with label , catalog and locationeach place in 1/3 of the card with a bootstrtrap bottom margin (mb-2)-->
        <div class="row">
         <div class="col-md-3 mb-2">
@@ -130,7 +135,7 @@ max two items per row so each item in a row set to col-6 or col-12 -->
        <table class="table table-bordered table-striped" data-virtual-scroll="true">
         <col style="width: 15%" />
         <col style="width: 35%" />
-        <col style="width: 30%" />
+        <col style="width: 35%" />
         <col style="width: 15%" />
         <tr scope="row">
          <th class="col-1-md">Composer</th>
@@ -138,6 +143,22 @@ max two items per row so each item in a row set to col-6 or col-12 -->
          <th class="col-3-md">Artist</th>
          <th></th>
         </tr>
+        <c:forEach var="composer" items="${form.composers}" varStatus="i">
+         <tr scope="row">
+          <td>${composer}</td>
+          <td>${form.works[i.index]}</td>
+          <td>${form.artists[i.index]}</td>
+          <td>
+            <form class="" id="modifyBtn"  action="/cd/cdModifyPerformance" method="post">
+            <input type="hidden" name="form" value="${form}">
+            <input type="hidden" name="id" value="${form.performancePK[i.index]}">
+            <input class="btn btn-outline-success btn-sm" type="submit" Value="Modify">
+           </form>
+           <input class="btn btn-outline-danger btn-sm" type="submit" Value="Delete ">
+          </td>
+         </tr>
+        </c:forEach>
+
        </table>
      </div>
     </div>
