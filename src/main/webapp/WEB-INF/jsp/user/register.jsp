@@ -12,15 +12,20 @@
     <!-- local -->
     <link rel="stylesheet" href="../../../pub/css/registration.css">
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 </head>
 
 <body class="vh-200">
 <!-- one section to rule them all . kludge in the view height to 200 to allow for the errors to show up -->
 <section class="gradient-custom">
+    <sec:authorize access="isAuthenticated()">
+        <jsp:include page="../include/navbar.jsp" />
+    </sec:authorize>
+
     <div class="container py-5 h-100">
         <!-- Use the bootstrap semantics  each field is assigned a row, each row centered ,
         max two items per row so each item in a row set to col-6 or col-12 -->
-        <div class="row justify-content-center align-items-center h-100">
+        <div class="row justify-content-center align-items-start h-100">
             <div class="col-12 col-lg-9 col-xl-7">
                 <!-- set a nice border shadow and round the edges of the card -->
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
@@ -107,6 +112,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <sec:authorize access="hasAuthority('ADMIN')">
                            <!-- row #4 . Radio button to control user type  Admin or User.  Use for DB GRANT -->
                             <div class="row">
                                 <div class="col-md-12 mb-4">
@@ -128,6 +134,23 @@
                                     </div>
                                 </div>
                             </div>
+                            </sec:authorize>
+                            <sec:authorize access="!hasAuthority('ADMIN')">
+                                <!-- row #4 . Radio button to control user type  Admin or User.  Use for DB GRANT -->
+                                <div class="row">
+                                    <div class="col-md-12 mb-4">
+                                        <h6 class="mb-2 pb-1">User Type: </h6>
+                                        <div class="form-check form-check-inline">
+                                            <input
+                                                    class="form-check-input" type="radio" name="userType"
+                                                    id="userOnly" value="USER" checked />
+                                            <label class="form-check-label" for="user">User</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                        </div>
+                                    </div>
+                                </div>
+                            </sec:authorize>
 
 <%--                            <!-- row #5 .  Drop down menu for User music preference. -->--%>
 <%--                            <!-- This started life as a sba requirement  But I've come to like it -->--%>

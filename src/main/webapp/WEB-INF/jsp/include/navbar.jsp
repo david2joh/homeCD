@@ -73,7 +73,3 @@
         </div>
     </div>
 </nav>
-
-
-<%--    <a href="/login/logout">Logout</a>--%> <%--//before Spring security--%>
-<%--    setup with spring security here to change login/logout--%>
