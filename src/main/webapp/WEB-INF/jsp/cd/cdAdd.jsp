@@ -5,10 +5,10 @@
 
 <div class="gradient-custom" style="height: 100vh">
 
-    <div class="container py-5 h-100">
+    <div class="container py-3 h-100">
         <!-- Use the bootstrap semantics  each field is assigned a row, each row centered ,
   max two items per row so each item in a row set to col-6 or col-12 -->
-        <div class="row justify-content-center align-items-center h-100">
+        <div class="row justify-content-center  h-100">
             <div class="col-11">
                 <!-- set a nice border shadow and round the edges of the card -->
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">

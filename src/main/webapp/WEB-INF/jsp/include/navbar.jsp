@@ -36,7 +36,7 @@
                     <a class="nav-link" href="/../location/list">| Locations</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/../perforamace/list">| Performances</a>
+                    <a class="nav-link" href="/../performance/list">| Performances</a>
                 </li>
                 <li class="nav-item">
                     <sec:authorize access="!isAuthenticated()">
@@ -44,7 +44,7 @@
                     </sec:authorize>
 
                     <sec:authorize access="isAuthenticated()">
-                        <a class="nav-link" href="/login/logout">| Logout</a>
+                        <a class="nav-link" href="/login/logout">| Logout |&nbsp&nbsp User :&nbsp<b><sec:authentication property="principal.username"/></b></a>
                         <%--        capture the user that is logged in--%>
 <%--                        authenticated as <sec:authentication property="principal.username"/>--%>
                     </sec:authorize>

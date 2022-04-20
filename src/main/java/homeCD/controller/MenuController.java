@@ -30,6 +30,9 @@ public class MenuController {
     @Autowired
     LocationDAO locationDao;
 
+    @Autowired
+    ComposerDAO composerDao;
+
     //Method to set the view for the main menu and populate the location list for the card
     @RequestMapping(value = "/menu/menu", method = RequestMethod.GET)
     public ModelAndView menu() throws Exception {
@@ -38,6 +41,8 @@ public class MenuController {
 
         // List<Location> locations = new ArrayList<Location>();
 
+        List<Composer> composers = composerDao.findAllOrderByComposerName();
+        response.addObject("composers", composers);
         // locations = locationDAO.findAll();
         List<Map<String,Object>> locations = locationDao.getLocationCount();
 
