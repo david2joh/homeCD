@@ -6,10 +6,10 @@
 
 <!-- one section to rule them all . kludge in the view height to 200 to allow for the errors to show up -->
 <section class="gradient-custom">
-    <div class="container py-5 h-100">
+    <div class="container h-100">
         <!-- Use the bootstrap semantics  each field is assigned a row, each row centered ,
 max two items per row so each item in a row set to col-6 or col-12 -->
-        <div class="row justify-content-center align-items-center h-90">
+        <div class="row justify-content-center align-items-center h-90" style="margin-bottom: 250px">
             <div class="col-12 col-lg-9 col-xl-7">
                 <!-- set a nice border shadow and round the edges of the card -->
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">

@@ -1,4 +1,4 @@
-<%@include file="../include/header.jsp"  %>
+<%@include file="../include/header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../include/navbar.jsp"/>
 
@@ -16,6 +16,14 @@
             <div class="card-body">
                 <h5 class="card-title">Composer Search</h5>
                 <p class="card-text">Find Disks by Composer</p>
+                <div class="row">
+                    <div class="col-md-2>
+                  <div class=" col-md-8 style="margin-top: 50px">
+
+                        <input type="search" class="form-control " name="cs" id="composerSearch" value="" maxlength="128"
+                               placeholder="Find a composer" autocomplete="off">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -63,9 +71,19 @@
             <div class="card-body">
                 <h5 class="card-title">Performance</h5>
                 <p class="card-text">Who? What? Where?</p>
+                <div class="row">
+                    <div class="col-md-2>
+                  <div class=" col-md-8 style="margin-top: 50px">
+
+                        <input type="search" class="form-control " name="q" id="location" value="" maxlength="128"
+                               placeholder="Find a Performance" autocomplete="off">
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
+
 
 <%@include file="../../../pub/html/footer.html" %>

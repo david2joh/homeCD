@@ -27,16 +27,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="myNavBar">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../menu/menu">| Home</a>
+                    <a class="nav-link active" aria-current="page" href="/../menu/menu">| Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../composer/list">| Composers</a>
+                    <a class="nav-link" href="/../composer/list">| Composers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../location/list">| Locations</a>
+                    <a class="nav-link" href="/../location/list">| Locations</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../perforamace/list">| Performances</a>
+                    <a class="nav-link" href="/../perforamace/list">| Performances</a>
                 </li>
                 <li class="nav-item">
                     <sec:authorize access="!isAuthenticated()">
