@@ -110,7 +110,7 @@ public class CdController {
 //    }
 
     @RequestMapping(value = "/cd/cdAddDisk", method = {RequestMethod.POST, RequestMethod.GET})
-    public ModelAndView cdAddDisk(@Valid CdAddFormBean form, BindingResult bindingResult , @RequestParam(value = "id" , required = false) Integer id)
+    public ModelAndView cdAddDisk(@Valid CdAddFormBean form, BindingResult bindingResult, @RequestParam(value = "id", required = false) Integer id)
             throws Exception {
         ModelAndView response = new ModelAndView();
 
@@ -135,7 +135,7 @@ public class CdController {
         }
         //send the form information to the service to deal with
         List<String> errors = new ArrayList<>();
-        Cd cd = cdService.cdAddDisk(form,errors);
+        Cd cd = cdService.cdAddDisk(form, errors);
 
         if (errors.size() > 0) {
             //Service layer returned errors something went wrong try to alert the user
@@ -143,8 +143,7 @@ public class CdController {
             response.addObject("errors", errors);
             response.setViewName("cd/cdAdd");
             return response;
-        }
-        else {  //Good to go add the info to the new form
+        } else {  //Good to go add the info to the new form
             PerformanceEntryFormBean pform = new PerformanceEntryFormBean();
             form.setId(cd.getId());
             pform.setId(cd.getId());
@@ -162,8 +161,8 @@ public class CdController {
 
 
     @RequestMapping(value = "/cd/cdAddPerformance", method = RequestMethod.POST)
-    public ModelAndView cdModifyPerformance(PerformanceEntryFormBean form, BindingResult bindingResult ,
-                                            @RequestParam(value = "id" , required = false) Integer id)
+    public ModelAndView cdAddPerformance(PerformanceEntryFormBean form, BindingResult bindingResult,
+                                            @RequestParam(value = "id", required = false) Integer id)
             throws Exception {
         ModelAndView response = new ModelAndView();
 
@@ -188,7 +187,7 @@ public class CdController {
         }
         //send the form information to the service to deal with
         List<String> errors = new ArrayList<>();
-        Performance performance = cdService.cdAddPerformance(form,errors);
+        Performance performance = cdService.cdAddPerformance(form, errors);
 
         if (errors.size() > 0) {
             //Service layer returned errors something went wrong try to alert the user
@@ -196,14 +195,9 @@ public class CdController {
             response.addObject("errors", errors);
             response.setViewName("cd/cdAddPerformance");
             return response;
-        }
-        else {  //Good to go add the info to the new form
+        } else {  //Good to go add the info to the new form
 //            PerformanceEntryFormBean pform = new PerformanceEntryFormBean();
             log.debug(form.toString());
-//            Stream<String> stream = Arrays.stream(new String[]{form.getPerformances().toString()});
-//            log.trace(stream.foreach.(Arrays.stream(new String[]{form.getPerformances()->toString());
-            // CD cd = cdDao.findById(form.getId());
-//            form.setId(form.getCd().getId());
             form.setLabel(form.getLabel());
             form.setCatalogNumber(form.getCatalogNumber());
             form.setLocationName(form.getLocationName());
@@ -221,8 +215,50 @@ public class CdController {
 
     //Modify a performance entry while adding a cd --  gold plating extra
     @RequestMapping(value = "/cd/cdModifyPerformance", method = RequestMethod.POST)
-    public ModelAndView cdModifyPerformance(CdEntryFormBean form, BindingResult bindingResult ,
-                                            @RequestParam(value = "id" , required = false) Integer id)
+    public ModelAndView cdModifyPerformance(PerformanceEntryFormBean form, BindingResult bindingResult,
+                                            @RequestParam(value = "id", required = false) Integer id)
+            throws Exception {
+
+        ModelAndView response = new ModelAndView();
+        //ask binding result if it has errors
+        if (bindingResult.hasErrors()) {
+            List<String> errorMessages = new ArrayList<>();
+
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                errorMessages.add(error.getDefaultMessage());
+                log.info(((FieldError) error).getField() + " " + error.getDefaultMessage());
+            }
+            //Add the information that was in the form back to the form when error
+            //so the user does not have to re-enter the information
+            response.addObject("form", form);
+            //add the error list to the model
+            response.addObject("errorMessages", errorMessages);
+            response.addObject("bindingResult", bindingResult);
+
+            //Send the form info back to the view
+            response.setViewName("cd/cdAddPerformance");
+            return response;
+        }
+
+        response.addObject("form", form);
+        //add the errror list to the model
+        response.addObject("bindingResult", bindingResult);
+        List<String> errorMessages = new ArrayList<>();
+        response.addObject("errorMessages", errorMessages);
+
+
+        //Send the form info back to the view
+        response.setViewName("redirect:cd/cdAddPerformance");
+        return response;
+    }
+
+
+    //Delete a performance entry while adding a cd
+    @RequestMapping(value = "/cd/cdAddPerformanceDelete", method = RequestMethod.POST)
+    public ModelAndView cdDeletePerformance(PerformanceEntryFormBean form, BindingResult bindingResult,
+                                            @RequestParam(value = "id", required = true) Integer id,
+                                            @RequestParam(value = "pId", required = true) Integer pId)
+
             throws Exception {
 
         ModelAndView response = new ModelAndView();
@@ -245,10 +281,9 @@ public class CdController {
             response.setViewName("cd/cdAdd");
             return response;
         }
-
-
-
-
+        //send the form information to the service to deal with
+        List<String> errors = new ArrayList<>();
+        cdService.cdAddPerformanceDelete(form, pId, errors);
 
         response.addObject("form", form);
         //add the errror list to the model
@@ -258,9 +293,9 @@ public class CdController {
 
 
         //Send the form info back to the view
-        response.setViewName("redirect:/cd/cdAdd");
+        response.setViewName("cd/cdAddPerformance");
         return response;
     }
 
 
-    }
+}

@@ -149,14 +149,20 @@
                                         <td>${form.works[i.index]}</td>
                                         <td>${form.artists[i.index]}</td>
                                         <td>
-                                            <form class="" id="modifyBtn" action="/cd/cdModifyPerformance"
-                                                  method="post">
-                                                <input type="hidden" name="form" value="${form}">
-                                                <input type="hidden" name="id" value="${form.performancePK[i.index]}">
-                                                <input class="btn btn-outline-success btn-sm" type="submit"
-                                                       Value="Modify">
+                                                <%--                                            <form class="" id="modifyBtn" action="/cd/cdModifyPerformance" method="post">-%>
+                                                <%--                                                <input type="hidden" name="id" value="${form.performancePK[i.index]}">--%>
+                                                <%--                                                <input class="btn btn-outline-success btn-sm" type="submit" Value="Modify--%>
+                                                <%--                                            </form>--%>
+
+                                            <form class="" id="deleteBtn" action="/cd/cdAddPerformanceDelete" method="post">
+                                                <input type="hidden" name="id" value="${form.id}">
+                                                <input type="hidden" name="label" value="${form.label}">
+                                                <input type="hidden" name="catalogNumber" value="${form.catalogNumber}">
+                                                <input type="hidden" name="locationName" value="${form.locationName}">
+                                                <input type="hidden" name="pId" value="${form.performancePK[i.index]}">
+                                                <input class="btn btn-outline-danger btn-sm" type="submit"
+                                                       Value="Delete">
                                             </form>
-                                            <input class="btn btn-outline-danger btn-sm" type="submit" Value="Delete ">
                                         </td>
                                     </tr>
                                 </c:forEach>

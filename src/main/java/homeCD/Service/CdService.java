@@ -44,7 +44,7 @@ public class CdService {
     public Cd cdAddDisk(CdAddFormBean form, List<String> errorMsgs) {
         Cd cd = null;
         Composer composer = null;
-        cd = cdDao.findCdByLabelAndAndCatalogNumber(form.getLabel(),form.getCatalogNumber());
+        cd = cdDao.findCdByLabelAndAndCatalogNumber(form.getLabel(), form.getCatalogNumber());
         if (cd == null) {  // new entry
             cd = new Cd();
             cd.setLabel(form.getLabel());
@@ -63,8 +63,6 @@ public class CdService {
     //Add a performance to a CD
     //Assumption CD entry is good
     //
-
-
 
 
     //Add a performance to a CD
@@ -98,15 +96,14 @@ public class CdService {
 
         // Check to see if a record for this CD exists in the join table if so
         // check the performance and artist to see if a duplicate
-        if ( cd != null && composer != null ){
+        if (cd != null && composer != null) {
 
             //Get the PKs of  Composer
             composerPK = composer.getId();
-
 //            List<Performance> performances = performanceDao.findBycdIdAndcomposerId(cdPK, composerPK);
             Set<Performance> performances = cd.getPerformances();
             if ((performances != null) && (performances.size() > 0)) { //iterate through the performances
-                for (Performance p: performances) {
+                for (Performance p : performances) {
                     if (p.getPerformance().equalsIgnoreCase(form.getPerformance())
                             && p.getArtist().equalsIgnoreCase(form.getArtist())) { //have a duplicate unwind
                         errorMsgs.add("Duplicate performance found on this CD  Not added");
@@ -117,11 +114,11 @@ public class CdService {
             }
         }
 
-        if ( composer == null) {  //new composer
-                composer = new Composer();
-                composer.setComposerName(form.getComposer());
-                composer = composerDao.save(composer);
-            }
+        if (composer == null) {  //new composer
+            composer = new Composer();
+            composer.setComposerName(form.getComposer());
+            composer = composerDao.save(composer);
+        }
 
         //Add a performance into the DB
         performance = new Performance();
@@ -134,20 +131,28 @@ public class CdService {
         performance = performanceDao.saveAndFlush(performance);
 
 
-        //Add the performances onto the form lists , retireve the changed cd entity
+        //Add the performances onto the form lists , retrieve the changed cd entity
         cd = cdDao.findById(form.getId());
         Set<Performance> performances = cd.getPerformances();
-         if ((performances != null) && (performances.size() > 0))
-        {
-            for (Performance p : performances) {
+        if ((performances != null) && (performances.size() > 0)) {
+//            for (Performance p : performances) {
+//                form.getPerformancePK().add((p.getId()));
+//                form.getComposers().add(p.getComposer().getComposerName());
+//                form.getWorks().add(p.getPerformance());
+//                form.getArtists().add(p.getArtist());
+//                form.getPerformances().add(p);
+//            }
+
+            performances.forEach(p-> {
                 form.getPerformancePK().add((p.getId()));
                 form.getComposers().add(p.getComposer().getComposerName());
                 form.getWorks().add(p.getPerformance());
                 form.getArtists().add(p.getArtist());
                 form.getPerformances().add(p);
-            }
+            });
         }
-         //Hack around the most recent performance not being in the set
+
+        //Hack around the most recent performance not being in the set
         form.getPerformancePK().add((performance.getId()));
         form.getComposers().add(performance.getComposer().getComposerName());
         form.getWorks().add(performance.getPerformance());
@@ -157,6 +162,33 @@ public class CdService {
         return performance;
     }
 
-
+    public void cdAddPerformanceDelete(PerformanceEntryFormBean form, Integer PerformancePK, List<String> errorMsgs) {
+        //Delete a performance during the cdAdd process - slightly different than deleting one from the Performance List
+        Performance perf = new Performance();
+        perf.setId(PerformancePK);
+        //While the documentation "says" delete returns the number of rows deleted the compiler and deep in JPA says void
+        //To work around this in the DAO one could add @Modifying/@Query(value = ""Delete From <table_name> where ...")/int myDeleteById;
+        //Really a style question
+        performanceDao.delete(perf);
+        //Remove the performance from the form
+        Cd cd = cdDao.findById(form.getId());
+        Set<Performance> performances = cd.getPerformances();
+        if ((performances != null) && (performances.size() > 0)) {
+            for (Performance p : performances) {
+                //Test for hibernate weirdness
+                if (p.getId() == PerformancePK) break;
+                form.getPerformancePK().add((p.getId()));
+                form.getComposers().add(p.getComposer().getComposerName());
+                form.getWorks().add(p.getPerformance());
+                form.getArtists().add(p.getArtist());
+                form.getPerformances().add(p);
+            }
+        }
+        form.setPerformance("");
+        form.setArtist("");
+        form.setComposer("");
+        return;
+    }
 
 } //class
+
