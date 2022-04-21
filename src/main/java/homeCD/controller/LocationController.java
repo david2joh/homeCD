@@ -1,6 +1,6 @@
 package homeCD.controller;
 
-import homeCD.formbean.CdDetailsBean;
+import homeCD.formbean.CdDetailBean;
 import homeCD.formbean.LocationFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,11 +142,11 @@ public class LocationController {
         response.addObject("location", location);
 
         Map<String,Object> result = new HashMap<>();
-        List<CdDetailsBean> cdDetails = new LinkedList<>();
+        List<CdDetailBean> cdDetails = new LinkedList<>();
         List<Map<String,Object>> results =  locationDao.getCDdetailsBylocationId((locationId));
         if (result != null ) {
             for (int i = 0; i < results.size(); i++) {
-                CdDetailsBean cdDetail = new CdDetailsBean();
+                CdDetailBean cdDetail = new CdDetailBean();
                 cdDetail.setId(i+1);
                 result = results.get(i);
                 cdDetail.setLocationName((String) result.get("locationName"));
@@ -168,25 +168,5 @@ public class LocationController {
 
         return response;
     }
-//
-//    @RequestMapping(value = "/menu/menu", method = RequestMethod.GET)
-//    public ModelAndView menu() throws Exception {
-//        ModelAndView response = new ModelAndView();
-//        response.setViewName("menu/menu");
-//
-//       // List<Location> locations = new ArrayList<Location>();
-//
-//       // locations = locationDAO.findAll();
-//        List<Map<String,Object>> locations = locationDAO.getLocationCount();
-//
-//        response.addObject("locations", locations);
-//
-//        return response;
-//    }
-
-
-
-
-
 
 }

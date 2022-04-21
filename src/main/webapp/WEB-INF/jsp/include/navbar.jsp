@@ -39,6 +39,9 @@
                     <a class="nav-link" href="/../performance/list">| Performances</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/../cd/cdList">| CD List</a>
+                </li>
+                <li class="nav-item">
                     <sec:authorize access="!isAuthenticated()">
                     <a class="nav-link" href="/login/login">| Login</a>
                     </sec:authorize>

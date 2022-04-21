@@ -9,10 +9,7 @@ import homeCD.database.entity.Cd;
 import homeCD.database.entity.Composer;
 import homeCD.database.entity.Location;
 import homeCD.database.entity.Performance;
-import homeCD.formbean.CdAddFormBean;
-import homeCD.formbean.CdEntryFormBean;
-import homeCD.formbean.CdMultiEntryFormBean;
-import homeCD.formbean.PerformanceEntryFormBean;
+import homeCD.formbean.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -259,9 +256,9 @@ public class CdController {
     @RequestMapping(value = "/cd/cdList", method = RequestMethod.GET)
     public ModelAndView cdList(PerformanceEntryFormBean form, BindingResult bindingResult)
             throws Exception {
-            ModelAndView response = new ModelAndView();
-            List<Cd> cds = cdDao.findAll();
-            List<Cd> sortedCds = cds.stream().sorted(Comparator.comparingInt(p->p.getLocationId())).collect(Collectors.toList());
+        ModelAndView response = new ModelAndView();
+        List<Cd> cds = cdDao.findAll();
+        List<Cd> sortedCds = cds.stream().sorted(Comparator.comparingInt(p -> p.getLocationId())).collect(Collectors.toList());
 //            //giggle well you wanted streams you get streams
 //            List<Integer> ids = cds.stream().map(Cd::getId).collect(Collectors.toList());
 //            List<String> labels = cds.stream().map(Cd::getLabel).collect(Collectors.toList());
@@ -269,17 +266,47 @@ public class CdController {
 //            List<String> catalogNumber = cds.stream().map(p->p.getCatalogNumber()).collect(Collectors.toList());
 
 //            //and lets get really stupid and make the code self modify!!!Streams, lambdas Unmaintainable Village here we go !
-            List<String> locationNames = sortedCds.stream().map(Cd::getLocationId).collect(Collectors.toList())
-                    .stream().map(lId->locationDao.findById(lId).getLocationName()).collect(Collectors.toList());
+        List<String> locationNames = sortedCds.stream().map(Cd::getLocationId).collect(Collectors.toList())
+                .stream().map(lId -> locationDao.findById(lId).getLocationName()).collect(Collectors.toList());
 //            //yeah that was so much better than just passing in the CD objects wasn't it?
 //            response.addObject("ids",ids);
 //            response.addObject("labels",labels);
 //            response.addObject("catalogNumber",catalogNumber);
-            response.addObject("locationNames",locationNames);
+        response.addObject("locationNames", locationNames);
 //            response.setViewName("cd/cdAddPerformance");
-            response.addObject("cds",sortedCds);
-            return response;
+        response.addObject("cds", sortedCds);
+        return response;
     }
+
+
+    //Get the details of this cd -- this is an internal method call only
+    @RequestMapping(value = "/cd/cdDetails", method = RequestMethod.GET)
+    public ModelAndView cdDetail(@RequestParam(value = "id" ,required = true) Integer id)
+            throws Exception {
+        ModelAndView response = new ModelAndView();
+
+        CdDetailsBean form = new CdDetailsBean();
+
+//        List<CdDetailBean> cdInfo = new ArrayList<>();
+        cdService.getCdDetails(form,id);
+//        CdDetailBean test = new CdDetailBean();
+//        test.setArtist("The Who");
+//        test.setComposer("the Pinball Guy");
+//        test.setPerformance("Whooo are You");
+//        cdInfo.add(test);
+//        response.addObject("cdInfo",cdInfo);
+        response.addObject("form",form);
+        response.setViewName("cd/cdDetails");
+        return response;
+    }
+//    @RequestMapping(value = "/cd/cdDetails", method = RequestMethod.GET)
+//    public ModelAndView cdDetails(CdDetailsBean form)
+//            throws Exception {
+//        ModelAndView response = new ModelAndView();
+//        response.addObject("form", form);
+//        response.setViewName("cd/cdDetails");
+//        return response;
+//    }
 }
 
 // THis got WAAAAAAAAYYY to monolithic and I've just left it as an example of what not to do

@@ -1,12 +1,9 @@
 package homeCD.controller;
 
-import homeCD.database.entity.Location;
-import homeCD.formbean.CdDetailsBean;
+import homeCD.formbean.CdDetailBean;
 import homeCD.formbean.ComposerFormBean;
-import homeCD.formbean.LocationFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.UsesSunHttpServer;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -134,12 +131,12 @@ public class ComposerController {
         response.setViewName("composer/composerDetails");
 
         Map<String,Object> result = new HashMap<>();
-        List<CdDetailsBean> cdDetails = new LinkedList<>();
+        List<CdDetailBean> cdDetails = new LinkedList<>();
         Composer composer = composerDao.findById(composerId);
         List<Map<String,Object>> results =  composerDao.getCDdetailsByComposerId((composerId));
         if (result != null ) {
             for (int i = 0; i < results.size(); i++) {
-                CdDetailsBean cdDetail = new CdDetailsBean();
+                CdDetailBean cdDetail = new CdDetailBean();
                 result = results.get(i);
                 cdDetail.setId((Integer) result.get("cdId"));
                 cdDetail.setLocationName((String) result.get("locationName"));

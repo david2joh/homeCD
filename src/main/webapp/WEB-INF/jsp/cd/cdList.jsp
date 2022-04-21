@@ -19,7 +19,7 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">CDs</h3>
 
-                        <div class="myScrollable" style="height: 500px; overflow-y: scroll;">
+                        <div class="myScrollable" style="height: 450px; overflow-y: scroll;">
                             <%--                        <div class="myScrollable">--%>
                             <table class="table table-bordered" data-virtual-scroll="true">
                                 <tr scope="row">
@@ -30,7 +30,7 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                 </tr>
                                 <c:forEach items="${cds}" var="cd" varStatus="i">
                                     <tr scope="row">
-                                        <td><a href="/cd/cdDetails?cdId=${cd.id}" />
+                                        <td><a href="/cd/cdDetails?id=${cd.id}" />
                                             <c:out value="${i.getCount()}" />
                                         </td>
                                         <td>${cd.label}</td>

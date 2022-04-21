@@ -1,14 +1,10 @@
 package homeCD.formbean;
 
-//The CdDetails bean is a container to hold the results
-//of the join from location to CD to Composer with the added
-//field of the performance snd artist from the CD_Composer table
-//
-//As such we do not have a controller for this rather this bean
-//is used to transmit aggregate data as read-only to the front-end
-//
-
 import lombok.*;
+
+import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,14 +13,18 @@ import lombok.*;
 @NoArgsConstructor
 public class CdDetailsBean {
 
-    private Integer id = 0;
+        private Integer id = 0;
 
-    private String locationName ="";
+        private String label = "";
 
-    private String composer ="";
+        private String catalogNumber = "";
 
-    private String performance ="";
+        private String locationName ="";
 
-    private String artist ="";
+        private List<String> composers = new ArrayList<>();
+
+        private List<String> works = new ArrayList<>();
+
+        private List<String> artists = new ArrayList<>();
 
 }

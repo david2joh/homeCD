@@ -10,6 +10,7 @@ import homeCD.database.entity.Composer;
 import homeCD.database.entity.Location;
 import homeCD.database.entity.Performance;
 import homeCD.formbean.CdAddFormBean;
+import homeCD.formbean.CdDetailsBean;
 import homeCD.formbean.CdEntryFormBean;
 import homeCD.formbean.PerformanceEntryFormBean;
 import lombok.Data;
@@ -18,9 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 //The CD service provides cross entity support for the individual controllers as CD operations span all the DB
 @Service
@@ -190,5 +190,21 @@ public class CdService {
         return;
     }
 
+    public void getCdDetails(CdDetailsBean form, Integer id) {
+        //Fill in all the CD information from the cdPK given by "id"
+        Cd cd = cdDao.findById(id);
+        form.setId(cd.getId());
+        form.setLabel(cd.getLabel());
+        form.setCatalogNumber(cd.getCatalogNumber());
+        form.setLocationName(locationDao.findById(cd.getLocationId()).getLocationName());
+       List<Performance> performances =
+               new ArrayList(cd.getPerformances().stream().sorted(Comparator.comparingInt(p -> p.hashCode())).collect(Collectors.toList()));
+       for (Performance p : performances) {
+           form.getComposers().add(p.getComposer().getComposerName());
+           form.getWorks().add(p.getPerformance());
+           form.getArtists().add(p.getArtist());
+       }
+
+    }
 } //class
 
