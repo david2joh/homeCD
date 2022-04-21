@@ -24,10 +24,10 @@
                                 <div class="col-md-10 pt-4">
                                     <input type="hidden" name="id" value="${form.id}">
 
-                                    <label for="composerId">Composer</label>
-                                    <select name="composerId" id="composerId">
+                                    <label for="composerId"><b>Composer&nbsp&nbsp</b></label>
+                                    <select style="font-size : 16px;" name="composerId" id="composerId">
                                         <c:forEach items="${composers}" var="composer">
-                                            <option value="${composer.id}">${composer.composerName}</option>
+                                            <option style="font-size : 16px;" value="${composer.id}">${composer.composerName}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -84,21 +84,21 @@
                     <div class="card-body">
                         <h5 class="card-title">Performance</h5>
                         <p class="card-text">Who? What? Where?</p>
-                        <div class="row">
-                            <div class="row">
-                                <%--                     <div class="col-md-9 style="margin-top: 50px">--%>
-                                <div class="col-md-10 pt-4">
+<%--                        <div class="row">--%>
+<%--                            <div class="row">--%>
+<%--                                &lt;%&ndash;                     <div class="col-md-9 style="margin-top: 50px">&ndash;%&gt;--%>
+<%--                                <div class="col-md-10 pt-4">--%>
 
-                                    <input type="search" class="form-control " name="ps" id="performanceSearch" value=""
-                                           maxlength="30"
-                                           placeholder="Find a performance" autocomplete="off">
-                                </div>
+<%--                                    <input type="search" class="form-control " name="ps" id="performanceSearch" value=""--%>
+<%--                                           maxlength="30"--%>
+<%--                                           placeholder="Find a performance" autocomplete="off">--%>
+<%--                                </div>--%>
 
-                                <div class="col-md-2 pt-4">
-                                    <input class="btn btn-outline-primary btn-md" type="submit" value="Find"/>
-                                </div>
-                            </div>
-                        </div>
+<%--                                <div class="col-md-2 pt-4">--%>
+<%--                                    <input class="btn btn-outline-primary btn-md" type="submit" value="Find"/>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
                     </div>
 
                 </div>

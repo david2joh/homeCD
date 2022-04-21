@@ -292,6 +292,8 @@ public class CdController {
         CdDetailsBean form = new CdDetailsBean();
 
         cdService.getCdDetails(form,id);
+        List<Location> locations = locationDao.findAll();
+        response.addObject("locations", locations);
         response.addObject("form",form);
         response.setViewName("cd/cdDetails");
         return response;
@@ -310,6 +312,22 @@ public class CdController {
         return response;
     }
 
+    @RequestMapping(value = "/cd/cdMove", method = RequestMethod.POST)
+    public ModelAndView cdMove(CdDetailsBean form , @RequestParam(value = "id" ,required = true) Integer id)
+            throws Exception {
+        ModelAndView response = new ModelAndView();
+        Cd cd = cdDao.findById(id);
+        if (cd != null) {
+            String newLocationName = form.getLocationName();
+            Integer newLocationId = locationDao.findByLocationName(newLocationName).getId();
+            if (cd.getLocationId() != newLocationId) {
+                cd.setLocationId(newLocationId);
+                cdDao.saveAndFlush(cd);
+            }
+        }
+        response.setViewName("redirect:/cd/cdDetails?id="+id);
+        return response;
+    }
 
 //    @RequestMapping(value = "/cd/cdDetails", method = RequestMethod.GET)
 //    public ModelAndView cdDetails(CdDetailsBean form)

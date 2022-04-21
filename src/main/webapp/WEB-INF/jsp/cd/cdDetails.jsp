@@ -31,6 +31,19 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                 <div class="col-md-3 mb-2 pb-2">
                                     <b>Location</b>
                                 </div>
+                                <sec:authorize access="hasAuthority('ADMIN')">
+                                    <div class="col-md-2 mb-2 pb-2">
+                                        <form action="/cd/cdDelete" method="POST">
+
+                                                <input type="hidden" name="id" value="${form.id}">
+
+                                                    <input class="btn btn-outline-danger btn-sm" type="submit"
+                                                           value="Delete"/>
+
+
+                                        </form>
+                                    </div>
+                                </sec:authorize>
                             </div>
                             <div class="row">
                                 <div class="col-md-3 mb-2 pb-2">
@@ -44,32 +57,21 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                 </div>
                             </div>
                             <div class="row">
-                                <form action="/cd/cdMove?cdId=${form.id}" method="POST">
+                                <form action="/cd/cdMove" method="POST">
                                     <div class="col-md-10 pt-4">
                                         <input type="hidden" name="id" value="${form.id}">
                                         <label for="locationId">New Location</label>
-                                        <select name="locationId" id="locationId">
-                                            <c:forEach items="${form.locationName}" var="location">
-                                                <option value="${form.locationName}">${form.locationName}</option>
+                                        <select name="locationName" id="locationId">
+                                            <c:forEach items="${locations}" var="location">
+                                                <option value="${location.locationName}">${location.locationName}</option>
                                             </c:forEach>
                                         </select>
-                                        &nbsp&nbsp<input class="btn btn-outline-info btn-sm" type="submit" value="Move"/>
+                                        &nbsp&nbsp<input class="btn btn-outline-info btn-sm" type="submit"
+                                                         value="Move"/>
                                     </div>
                                 </form>
                             </div>
-                            <sec:authorize access="hasAuthority('ADMIN')">
-                                <div class="row">
-                                    <form action="/cd/cdDelete" method="POST">
-                                        <div class="col-md-5 pt-4">
-                                            <input type="hidden" name="id" value="${form.id}">
-                                            <div class="col-md-3 pt-4">
-                                                <input class="btn btn-outline-danger btn-sm" type="submit"
-                                                       value="Delete"/>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </sec:authorize>
+
                         </div>
                         <br>
                         <div class="myScrollable" style="height: 500px; overflow-y: scroll;">
