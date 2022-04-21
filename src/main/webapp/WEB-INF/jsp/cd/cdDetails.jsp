@@ -19,7 +19,6 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                          style="border-radius: 15px 15px 0px 0px; height: 35vh !important;">
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">CD Details</h3>
-                        form= ${form}<br>
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-3 mb-2 pb-2">
