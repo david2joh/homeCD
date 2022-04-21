@@ -12,6 +12,7 @@ import homeCD.database.entity.Performance;
 import homeCD.formbean.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -27,8 +28,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+//
+//The controller for all CD functions (add, move, delete)
+// Due to the span of CD operations this controller has its own Service
+//
 @Slf4j
 @Controller
+@PreAuthorize("hasAnyAuthority('USER','ADMIN')")
 public class CdController {
 
     @Autowired
@@ -269,12 +275,10 @@ public class CdController {
         List<String> locationNames = sortedCds.stream().map(Cd::getLocationId).collect(Collectors.toList())
                 .stream().map(lId -> locationDao.findById(lId).getLocationName()).collect(Collectors.toList());
 //            //yeah that was so much better than just passing in the CD objects wasn't it?
-//            response.addObject("ids",ids);
-//            response.addObject("labels",labels);
-//            response.addObject("catalogNumber",catalogNumber);
         response.addObject("locationNames", locationNames);
 //            response.setViewName("cd/cdAddPerformance");
         response.addObject("cds", sortedCds);
+        //            response.setViewName("cd/cdList");
         return response;
     }
 
@@ -287,18 +291,26 @@ public class CdController {
 
         CdDetailsBean form = new CdDetailsBean();
 
-//        List<CdDetailBean> cdInfo = new ArrayList<>();
         cdService.getCdDetails(form,id);
-//        CdDetailBean test = new CdDetailBean();
-//        test.setArtist("The Who");
-//        test.setComposer("the Pinball Guy");
-//        test.setPerformance("Whooo are You");
-//        cdInfo.add(test);
-//        response.addObject("cdInfo",cdInfo);
         response.addObject("form",form);
         response.setViewName("cd/cdDetails");
         return response;
     }
+
+    //Delete a cd from the DB
+    @RequestMapping(value = "/cd/cdDelete", method = RequestMethod.POST)
+    public ModelAndView cdDelete(@RequestParam(value = "id" ,required = true) Integer id)
+            throws Exception {
+        ModelAndView response = new ModelAndView();
+        Cd cd = cdDao.findById(id);
+        if (cd != null) {
+            cdDao.deleteCd(cd.getId());
+        }
+        response.setViewName("redirect:/cd/cdList");
+        return response;
+    }
+
+
 //    @RequestMapping(value = "/cd/cdDetails", method = RequestMethod.GET)
 //    public ModelAndView cdDetails(CdDetailsBean form)
 //            throws Exception {

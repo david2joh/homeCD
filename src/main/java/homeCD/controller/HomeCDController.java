@@ -7,6 +7,7 @@ import homeCD.database.entity.User;
 import homeCD.formbean.RegisterFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
+//
+// A controller to just handle the login screen
+//
 @Slf4j
 @Controller
+@PreAuthorize("hasAnyAuthority('USER','ADMIN')")
 public class HomeCDController {
 
 @Autowired

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@include file="../../../pub/html/header.html" %>
 <%--<jsp:include page="../include/header.jsp" />--%>
 <jsp:include page="../include/navbar.jsp"/>
@@ -42,6 +43,33 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                     ${form.locationName}
                                 </div>
                             </div>
+                            <div class="row">
+                                <form action="/cd/cdMove?cdId=${form.id}" method="POST">
+                                    <div class="col-md-10 pt-4">
+                                        <input type="hidden" name="id" value="${form.id}">
+                                        <label for="locationId">New Location</label>
+                                        <select name="locationId" id="locationId">
+                                            <c:forEach items="${form.locationName}" var="location">
+                                                <option value="${form.locationName}">${form.locationName}</option>
+                                            </c:forEach>
+                                        </select>
+                                        &nbsp&nbsp<input class="btn btn-outline-info btn-sm" type="submit" value="Move"/>
+                                    </div>
+                                </form>
+                            </div>
+                            <sec:authorize access="hasAuthority('ADMIN')">
+                                <div class="row">
+                                    <form action="/cd/cdDelete" method="POST">
+                                        <div class="col-md-5 pt-4">
+                                            <input type="hidden" name="id" value="${form.id}">
+                                            <div class="col-md-3 pt-4">
+                                                <input class="btn btn-outline-danger btn-sm" type="submit"
+                                                       value="Delete"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </sec:authorize>
                         </div>
                         <br>
                         <div class="myScrollable" style="height: 500px; overflow-y: scroll;">
@@ -57,9 +85,9 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                 </tr>
                                 <c:forEach items="${form.composers}" var="composer" varStatus="i">
                                     <tr scope="row">
-<%--                                        <td><a href="/cd/cdDetails?cdId=${cd.id}"/>--%>
-<%--                                            <c:out value="${i.getCount()}"/>--%>
-<%--                                        </td>--%>
+                                            <%--                                        <td><a href="/cd/cdDetails?cdId=${cd.id}"/>--%>
+                                            <%--                                            <c:out value="${i.getCount()}"/>--%>
+                                            <%--                                        </td>--%>
                                         <td>${composer}</td>
                                         <td>${form.works[i.index]}</td>
                                         <td>${form.artists[i.index]}</td>

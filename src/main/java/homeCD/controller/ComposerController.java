@@ -4,6 +4,7 @@ import homeCD.formbean.CdDetailBean;
 import homeCD.formbean.ComposerFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -19,8 +20,16 @@ import homeCD.database.entity.Composer;
 import javax.validation.Valid;
 import java.util.*;
 
+//
+//The Composer Controller to handle composer requests
+//Composers are limited to add and search.
+//Business logic limits the amount of operations required
+//Do not want to delete a composer from the UI interface
+//
+
 @Slf4j
 @Controller
+@PreAuthorize("hasAnyAuthority('USER','ADMIN')")
 public class ComposerController {
 
     @Autowired

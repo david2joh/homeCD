@@ -4,6 +4,7 @@ import homeCD.formbean.CdDetailBean;
 import homeCD.formbean.LocationFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -19,8 +20,14 @@ import homeCD.database.entity.Location;
 import javax.validation.Valid;
 import java.util.*;
 
+//
+// Location Controller -- this is two leveled the overview of all locations
+// and details expressing what CDs exist in a particular location
+//
+
 @Slf4j
 @Controller
+@PreAuthorize("hasAnyAuthority('USER','ADMIN')")
 public class LocationController {
 
     @Autowired

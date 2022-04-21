@@ -25,6 +25,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+//
+// Deal with user login and registration
+//  This method is unsecured as we don't want to prevent
+//  logins or new user registration
+//
 @Slf4j
 @Controller
 public class LoginController {

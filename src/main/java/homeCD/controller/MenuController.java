@@ -3,6 +3,7 @@ package homeCD.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,8 +16,15 @@ import homeCD.database.entity.Composer;
 
 import java.util.*;
 
+//
+// Handle the main menu landing page
+//
+// Not a lot here but
+
+
 @Slf4j
 @Controller
+@PreAuthorize("hasAnyAuthority('USER','ADMIN')")
 public class MenuController {
 
     @Autowired

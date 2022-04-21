@@ -9,6 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.File;
 import java.util.List;
 
+//
+//The Index controller -- this is an old artifact pre-security
+//that is left in here for when things go very bad
+//
+
 @Slf4j
 @Controller
 public class IndexController {
