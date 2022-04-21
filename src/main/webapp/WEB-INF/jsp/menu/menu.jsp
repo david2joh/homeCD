@@ -21,7 +21,7 @@
 
                         <div class="row">
                             <form action="/composer/composerDetails?composerId=${composer.id}" method="GET">
-                                <div class="col-md-10 pt-4">
+                                <div class="col-md-9 pt-4">
                                     <input type="hidden" name="id" value="${form.id}">
 
                                     <label for="composerId"><b>Composer&nbsp&nbsp</b></label>
@@ -78,7 +78,7 @@
             <!-- Card #3 our performance search card -->
             <div class="col">
                 <div class="card h-100">
-                    <a href="../performance/list">
+                    <a href="../performance/performanceList">
                         <img src="../pub/img/conductor.jpg" class="card-img-top" alt="Performance">
                     </a>
                     <div class="card-body">

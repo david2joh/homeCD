@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -337,7 +334,9 @@ public class CdController {
 //        response.setViewName("cd/cdDetails");
 //        return response;
 //    }
-}
+
+}  //class
+
 
 // THis got WAAAAAAAAYYY to monolithic and I've just left it as an example of what not to do
 //

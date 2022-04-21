@@ -36,7 +36,7 @@
                     <a class="nav-link" href="/../location/list">| Locations</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/../performance/list">| Performances</a>
+                    <a class="nav-link" href="/../performance/performanceList">| Performances</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/../cd/cdList">| CD List</a>

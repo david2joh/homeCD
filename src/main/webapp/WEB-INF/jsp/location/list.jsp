@@ -16,7 +16,8 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                          style="border-radius: 15px 15px 0px 0px" ;>
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">LOCATIONS</h3>
-
+                        ${bindingResult}
+                        ${errorMessages}
 
                         <table class="table">
                             <tr scope="row">
@@ -53,6 +54,9 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                                placehoder="Add New Location" name="locationName" />
                                         <label class="form-label" for="newLocation">Add New Location</label>
                                         <div id="validationnewlocationFeedback" class="invalid-feedback"></div>
+                                        <c:forEach items='${bindingResult.getFieldErrors("locationName")}' var="error">
+                                            <div style="color:red;">${error.getDefaultMessage()}</div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <div class="col-md-1 mb-4"></div>
@@ -82,11 +86,18 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                 </div>
                             </div>
                         </form>
+                        <c:forEach items='${bindingResult.getFieldErrors("locationName")}' var="error">
+                            <div style="color:red;">${error.getDefaultMessage()}</div>
+                        </c:forEach>
+                        <c:forEach items='${errorMessage}' var="error">
+                            <div style="color:red;">${error}</div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </section>
 
 <jsp:include page="../include/footer.jsp" />
