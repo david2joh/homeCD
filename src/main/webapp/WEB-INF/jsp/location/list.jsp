@@ -1,10 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../../../pub/html/header.html" %>
-<jsp:include page="../include/navbar.jsp" />
+<jsp:include page="../include/navbar.jsp"/>
 
 <!-- one section to rule them all . kludge in the view height to 200 to allow for the errors to show up -->
-<section class="gradient-custom">
-    <div class="container py-5 h-100">
+<section class="gradient-custom" style="height: 100vh">
+    <div class="container py-2 h-150">
         <!-- Use the bootstrap semantics  each field is assigned a row, each row centered ,
 max two items per row so each item in a row set to col-6 or col-12 -->
         <div class="row justify-content-center align-items-center h-90">
@@ -16,8 +16,6 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                          style="border-radius: 15px 15px 0px 0px" ;>
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">LOCATIONS</h3>
-                        ${bindingResult}
-                        ${errorMessages}
 
                         <table class="table">
                             <tr scope="row">
@@ -27,19 +25,19 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                             </tr>
                             <c:forEach items="${locations}" var="location" varStatus="i">
                                 <tr scope="row">
-                                    <td><a href="/location/details?locationId=${location.id}" />
-                                        <c:out value="${i.getCount()}" />
+                                    <td><a href="/location/details?locationId=${location.id}"/>
+                                        <c:out value="${i.getCount()}"/>
                                     </td>
                                     <td>${location.locationName}</td>
                                     <td>${location.cds.size()}</td>
-<%--                                    <td>--%>
-<%--                                        <form action="/user/locationChange/delete" id="deleteForm1">--%>
-<%--                                            <input type="hidden" name="locationName" id="deleteLocation1"--%>
-<%--                                                   value=${location.locationName}>--%>
-<%--                                            <input class="btn btn-outline-primary btn-md" type="submit"--%>
-<%--                                                   value="delete" />--%>
-<%--                                        </form>--%>
-<%--                                    </td>--%>
+                                        <%--                                    <td>--%>
+                                        <%--                                        <form action="/user/locationChange/delete" id="deleteForm1">--%>
+                                        <%--                                            <input type="hidden" name="locationName" id="deleteLocation1"--%>
+                                        <%--                                                   value=${location.locationName}>--%>
+                                        <%--                                            <input class="btn btn-outline-primary btn-md" type="submit"--%>
+                                        <%--                                                   value="delete" />--%>
+                                        <%--                                        </form>--%>
+                                        <%--                                    </td>--%>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -51,17 +49,17 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                 <div class="col-md-4 mb-4">
                                     <div class="form-outline">
                                         <input type="text" id="newLocation" class="form-control form-control-lg"
-                                               placehoder="Add New Location" name="locationName" />
+                                               placehoder="Add New Location" name="locationName" required/>
                                         <label class="form-label" for="newLocation">Add New Location</label>
                                         <div id="validationnewlocationFeedback" class="invalid-feedback"></div>
-                                        <c:forEach items='${bindingResult.getFieldErrors("locationName")}' var="error">
-                                            <div style="color:red;">${error.getDefaultMessage()}</div>
-                                        </c:forEach>
+                                        <%--                                        <c:forEach items='${bindingResult.getFieldErrors("locationName")}' var="error">--%>
+                                        <%--                                            <div style="color:red;">${error.getDefaultMessage()}</div>--%>
+                                        <%--                                        </c:forEach>--%>
                                     </div>
                                 </div>
                                 <div class="col-md-1 mb-4"></div>
                                 <div class="col-md-3 pt-2">
-                                    <input class="btn btn-outline-primary btn-md" type="submit" value="add" />
+                                    <input class="btn btn-outline-primary btn-md" type="submit" value="add"/>
                                 </div>
                             </div>
                         </form>
@@ -73,7 +71,7 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                     <div class="form-outline">
                                         <input type="text" id="deleteLocation"
                                                class="form-control form-control-lg" placehoder="Delete a Location"
-                                               name="locationName" value="${form.locationName}" />
+                                               name="locationName" value="${form.locationName}" required/>
                                         <label class="form-label" for="newLocation">Delete a Location</label>
                                         <div id="validationdeleteLocationFeedback" class="invalid-feedback">
                                         </div>
@@ -82,15 +80,12 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                 <div class="col-md-1 mb-4"></div>
                                 <div class="col-md-3 pt-2">
                                     <input class="btn btn-outline-primary btn-md" type="submit"
-                                           value="delete" />
+                                           value="delete"/>
                                 </div>
                             </div>
                         </form>
                         <c:forEach items='${bindingResult.getFieldErrors("locationName")}' var="error">
                             <div style="color:red;">${error.getDefaultMessage()}</div>
-                        </c:forEach>
-                        <c:forEach items='${errorMessage}' var="error">
-                            <div style="color:red;">${error}</div>
                         </c:forEach>
                     </div>
                 </div>
@@ -100,4 +95,4 @@ max two items per row so each item in a row set to col-6 or col-12 -->
 
 </section>
 
-<jsp:include page="../include/footer.jsp" />
+<jsp:include page="../include/footer.jsp"/>

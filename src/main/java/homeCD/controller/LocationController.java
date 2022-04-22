@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -35,7 +36,7 @@ public class LocationController {
 
     // List  Locations for the intro location page
     @RequestMapping(value = "/location/list", method = RequestMethod.GET)
-    public ModelAndView list() throws Exception {
+    public ModelAndView list(LocationFormBean form, BindingResult bindingResult) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("location/list");
 
@@ -46,11 +47,11 @@ public class LocationController {
         response.addObject("locations", locations);
         /*
         Seeding the model with an empty form so that the JSP substitutions will not error out
-        in this case spring is being nice enough to not thow errors but these 2 lines are safety
+        in this case spring is being nice enough to not throw errors but these 2 lines are safety
          */
-        LocationFormBean form = new LocationFormBean();
+        form = new LocationFormBean();
         response.addObject("form", form);
-
+        response.addObject("bindingResult", bindingResult);
         return response;
     }
 
@@ -59,10 +60,13 @@ public class LocationController {
     public ModelAndView locationChange(@Valid LocationFormBean form, BindingResult bindingResult,
                                        @PathVariable("action") String action) throws Exception {
         ModelAndView response = new ModelAndView();
-
+        ModelMap rmap = new ModelMap();
         //ask binding result if it has errors
         if (bindingResult.hasErrors()) {
             List<String> errorMessages = new ArrayList<>();
+            List<Location> locations = new ArrayList<>();
+
+            locations = locationDao.findAll();
 
             for (ObjectError error : bindingResult.getAllErrors()) {
                 errorMessages.add(error.getDefaultMessage());
@@ -74,12 +78,16 @@ public class LocationController {
             //add the errror list to the model
             response.addObject("errorMessages", errorMessages);
             response.addObject("bindingResult", bindingResult);
-
+            log.warn(bindingResult.getAllErrors().toString());
             //because this is an error we do not want to processs to create/update/delete a location in the DB
             // We want to show the same model that we are already on location/list
-            response.setViewName("redirect:/location/list");
-            //response.setViewName("redirect:/user/register");
-            return response;
+            rmap.addAttribute("locations", locations);
+            rmap.addAttribute("bindingResult", bindingResult);
+            rmap.addAttribute("form", form);
+//            response.setViewName("redirect:/location/list");
+
+            return new ModelAndView("forward:/location/list",rmap);
+//            return new ModelAndView("redirect:/location/list",rmap);
         }
 
         Location dbLocation = new Location();

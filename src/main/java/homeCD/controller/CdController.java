@@ -273,7 +273,6 @@ public class CdController {
                 .stream().map(lId -> locationDao.findById(lId).getLocationName()).collect(Collectors.toList());
 //            //yeah that was so much better than just passing in the CD objects wasn't it?
         response.addObject("locationNames", locationNames);
-//            response.setViewName("cd/cdAddPerformance");
         response.addObject("cds", sortedCds);
         //            response.setViewName("cd/cdList");
         return response;
@@ -303,6 +302,7 @@ public class CdController {
         ModelAndView response = new ModelAndView();
         Cd cd = cdDao.findById(id);
         if (cd != null) {
+            log.info("Delete CD : " +cd.toString());
             cdDao.deleteCd(cd.getId());
         }
         response.setViewName("redirect:/cd/cdList");

@@ -54,6 +54,7 @@ public class CdService {
             cd.setLocationId(location.getId());
             //write cd info to the db
             cd = cdDao.save(cd);
+            log.info("CD added : " + cd.toString());
         } else {  //Tried to enter a cd that exists
             errorMsgs.add("Attempt to enter an existing CD : Not added");
         }
