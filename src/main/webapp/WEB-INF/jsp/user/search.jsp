@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../../../pub/html/header.html" %>
 <%--<jsp:include page="../include/header.jsp" />--%>
-<jsp:include page="../include/navbar.jsp" />
+<jsp:include page="../include/navbar.jsp"/>
 <link rel="stylesheet" href="../css/general.css">
 
 <section class="gradient-custom vh-200">
@@ -23,7 +23,7 @@
                                     <div class="form-outline">
                                         <input type="text" id="searchUserName" name="searchUserName"
                                                value="${searchUserName}" class="form-control form-control-sm" required
-                                               placeholder="Find User by Name" />
+                                               placeholder="Find User by Name"/>
                                         <label class="form-label" for="searchUserName">Find User by User
                                             Name</label>
                                     </div>
@@ -32,13 +32,14 @@
 
                             <div class="row">
                                 <div class="col-md-3 mt-2 pt-2 mb-2">
-                                    <input class="btn btn-outline-primary btn-md" type="submit" />
+                                    <input class="btn btn-outline-primary btn-md" type="submit"/>
                                 </div>
                                 <%-- <div class="col-md-3 mt-2 pt-2"> --%>
                                 <%-- </div> --%>
 
                                 <div class="col-md-6 mt-2 pt-2" id="message">Welcome to User Search - Lost
-                                    and NOT Found</div>
+                                    and NOT Found
+                                </div>
                             </div>
                             <%-- <button type="submit">Submit</button>--%>
                         </form>
@@ -53,7 +54,7 @@
                                     <th>Username</th>
                                     <th>First Name</th>
                                     <th>Last Name</th>
-                                    <th> </th>
+                                    <th></th>
                                 </tr>
                                 <c:forEach items="${users}" var="user">
                                     <tr scope="row">
@@ -65,7 +66,7 @@
                                                 <input type="hidden" name="userName" id="userName"
                                                        value=${user.userName}>
                                                 <input class="btn btn-outline-primary btn-md" type="submit"
-                                                       value="Edit User" />
+                                                       value="Edit User"/>
                                             </form>
                                         </td>
 
@@ -80,4 +81,4 @@
     </div>
 </section>
 
-<jsp:include page="../include/footer.jsp" />
+<jsp:include page="../include/footer.jsp"/>

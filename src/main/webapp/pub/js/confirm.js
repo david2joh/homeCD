@@ -1,6 +1,7 @@
-function working(){
+function working() {
     console.log("Clicked")
 }
+
 //
 // const button = document.getElementById("button");
 //

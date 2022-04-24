@@ -22,13 +22,12 @@ public class UserNameUniqueImpl implements ConstraintValidator<UserNameUnique, S
 
     @Override
     public boolean isValid(String str, ConstraintValidatorContext constraintValidatorContext) {
-        if (str.isEmpty()) {return true;}
+        if (str.isEmpty()) {
+            return true;
+        }
         User user = userDAO.findByUserName(str);
         return (user == null);
     }
-
-
-
 
 
 }

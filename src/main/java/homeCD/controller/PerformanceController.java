@@ -9,13 +9,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+//
+// Small controller to list all the performances
+//
 
 @Slf4j
 @Controller
@@ -30,11 +33,11 @@ public class PerformanceController {
         ModelAndView response = new ModelAndView();
         response.setViewName("performance/performanceList");
 
-    log.trace("Entering performance/performanceList");
-        Map<String,Object> result = new HashMap<>();
+        log.trace("Entering performance/performanceList");
+        Map<String, Object> result = new HashMap<>();
         List<PerformanceDetailBean> pDetails = new LinkedList<>();
-        List<Map<String,Object>> results = performanceDao.getPerformancelist();
-        if (result != null ) {
+        List<Map<String, Object>> results = performanceDao.getPerformancelist();
+        if (result != null) {
             for (int i = 0; i < results.size(); i++) {
                 PerformanceDetailBean pDetail = new PerformanceDetailBean();
                 result = results.get(i);
@@ -48,6 +51,6 @@ public class PerformanceController {
             response.addObject("pDetails", pDetails);
         }
 
-         return response;
+        return response;
     }
 }

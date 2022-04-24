@@ -11,7 +11,6 @@ import homeCD.database.entity.Location;
 import homeCD.database.entity.Performance;
 import homeCD.formbean.CdAddFormBean;
 import homeCD.formbean.CdDetailsBean;
-import homeCD.formbean.CdEntryFormBean;
 import homeCD.formbean.PerformanceEntryFormBean;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 //The CD service provides cross entity support for the individual controllers as CD operations span all the DB
@@ -136,15 +138,7 @@ public class CdService {
         cd = cdDao.findById(form.getId());
         Set<Performance> performances = cd.getPerformances();
         if ((performances != null) && (performances.size() > 0)) {
-//            for (Performance p : performances) {
-//                form.getPerformancePK().add((p.getId()));
-//                form.getComposers().add(p.getComposer().getComposerName());
-//                form.getWorks().add(p.getPerformance());
-//                form.getArtists().add(p.getArtist());
-//                form.getPerformances().add(p);
-//            }
-
-            performances.forEach(p-> {
+            performances.forEach(p -> {
                 form.getPerformancePK().add((p.getId()));
                 form.getComposers().add(p.getComposer().getComposerName());
                 form.getWorks().add(p.getPerformance());
@@ -153,7 +147,7 @@ public class CdService {
             });
         }
 
-        //Hack around the most recent performance not being in the set
+        //Hack around the most recent performance not being in the set -- Hibernate weirdness
         form.getPerformancePK().add((performance.getId()));
         form.getComposers().add(performance.getComposer().getComposerName());
         form.getWorks().add(performance.getPerformance());
@@ -198,13 +192,13 @@ public class CdService {
         form.setLabel(cd.getLabel());
         form.setCatalogNumber(cd.getCatalogNumber());
         form.setLocationName(locationDao.findById(cd.getLocationId()).getLocationName());
-       List<Performance> performances =
-               new ArrayList(cd.getPerformances().stream().sorted(Comparator.comparingInt(p -> p.hashCode())).collect(Collectors.toList()));
-       for (Performance p : performances) {
-           form.getComposers().add(p.getComposer().getComposerName());
-           form.getWorks().add(p.getPerformance());
-           form.getArtists().add(p.getArtist());
-       }
+        List<Performance> performances =
+                new ArrayList(cd.getPerformances().stream().sorted(Comparator.comparingInt(p -> p.hashCode())).collect(Collectors.toList()));
+        for (Performance p : performances) {
+            form.getComposers().add(p.getComposer().getComposerName());
+            form.getWorks().add(p.getPerformance());
+            form.getArtists().add(p.getArtist());
+        }
 
     }
 } //class

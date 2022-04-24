@@ -1,11 +1,13 @@
 package homeCD.controller;
 
 
+import homeCD.database.DAO.UserDAO;
 import homeCD.database.DAO.UserRoleDAO;
+import homeCD.database.entity.User;
 import homeCD.database.entity.UserRole;
+import homeCD.formbean.RegisterFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.UsesSunHttpServer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,16 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import homeCD.database.DAO.UserDAO;
-import homeCD.database.entity.User;
-import homeCD.formbean.RegisterFormBean;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 //
@@ -79,7 +77,7 @@ public class LoginController {
         //First assume we are doing an edit by loading the user from the DB using the incoming id
         User user = userDao.findById(form.getId());
         //ask binding result if it has errors -or- if we have a non-null user AND more than one error (which is the duplicate user on an edit)
-        if ((bindingResult.hasErrors()) && !((user != null) && (bindingResult.getErrorCount() > 1)) ) {
+        if ((bindingResult.hasErrors()) && !((user != null) && (bindingResult.getErrorCount() > 1))) {
             List<String> errorMessages = new ArrayList<>();
 
             for (ObjectError error : bindingResult.getAllErrors()) {
@@ -93,8 +91,8 @@ public class LoginController {
             response.addObject("errorMessages", errorMessages);
             response.addObject("bindingResult", bindingResult);
 
-            //because this is an error we do not want to processs to create a user in the DB
-            // We want to show the same model that we are alreay on register.jsp
+            //because this is an error we do not want to process to create a user in the DB
+            // We want to show the same model that we are already on register.jsp
             response.setViewName("user/register");
             //response.setViewName("redirect:/user/register");
             return response;
@@ -111,7 +109,7 @@ public class LoginController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
 
-            if(currentPrincipalName.equals("anonymousUser")) {
+            if (currentPrincipalName.equals("anonymousUser")) {
                 response.setViewName("redirect:/login/login");
             } else {
                 response.setViewName("user/search");
@@ -143,9 +141,11 @@ public class LoginController {
         //check for null if null thiss user is not yet in the table
         if (userRoles != null) {
             //iterate the list, does this user have this role
-            for (UserRole userRole : userRoles)
-            {
-                if (userRole.getUserRole().equals(form.getUserType())) {foundUserRole = true; break;}
+            for (UserRole userRole : userRoles) {
+                if (userRole.getUserRole().equals(form.getUserType())) {
+                    foundUserRole = true;
+                    break;
+                }
             }
         }
         if (!foundUserRole) {
@@ -162,15 +162,7 @@ public class LoginController {
     }
 
 
-
-
-
-
-
 }
-
-
-
 
 
 //

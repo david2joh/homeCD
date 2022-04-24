@@ -6,10 +6,12 @@ import homeCD.database.DAO.ComposerDAO;
 import homeCD.database.DAO.LocationDAO;
 import homeCD.database.DAO.PerformanceDAO;
 import homeCD.database.entity.Cd;
-import homeCD.database.entity.Composer;
 import homeCD.database.entity.Location;
 import homeCD.database.entity.Performance;
-import homeCD.formbean.*;
+import homeCD.formbean.CdAddFormBean;
+import homeCD.formbean.CdDetailsBean;
+import homeCD.formbean.CdEntryFormBean;
+import homeCD.formbean.PerformanceEntryFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,13 +19,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 //
 //The controller for all CD functions (add, move, delete)
@@ -154,16 +160,13 @@ public class CdController {
             response.setViewName("cd/cdAddPerformance");
             return response;
         } else {  //Good to go add the info to the new form
-//            PerformanceEntryFormBean pform = new PerformanceEntryFormBean();
             log.debug(form.toString());
             form.setLabel(form.getLabel());
             form.setCatalogNumber(form.getCatalogNumber());
             form.setLocationName(form.getLocationName());
-//            form.setCd(form.getCd());
             form.getPerformances().add(performance);
             response.addObject("errors", errors);
             response.addObject("form", form);
-            // response.addObject("cd",cd);
         }
 
         response.setViewName("cd/cdAddPerformance");
@@ -262,16 +265,10 @@ public class CdController {
         ModelAndView response = new ModelAndView();
         List<Cd> cds = cdDao.findAll();
         List<Cd> sortedCds = cds.stream().sorted(Comparator.comparingInt(p -> p.getLocationId())).collect(Collectors.toList());
-//            //giggle well you wanted streams you get streams
-//            List<Integer> ids = cds.stream().map(Cd::getId).collect(Collectors.toList());
-//            List<String> labels = cds.stream().map(Cd::getLabel).collect(Collectors.toList());
-//            //ooh lambda too just to make the line completely incomprehensible
-//            List<String> catalogNumber = cds.stream().map(p->p.getCatalogNumber()).collect(Collectors.toList());
 
-//            //and lets get really stupid and make the code self modify!!!Streams, lambdas Unmaintainable Village here we go !
+        //and lets get really stupid and make the code self modify!!!Streams, lambdas Unmaintainable Village here we go !
         List<String> locationNames = sortedCds.stream().map(Cd::getLocationId).collect(Collectors.toList())
                 .stream().map(lId -> locationDao.findById(lId).getLocationName()).collect(Collectors.toList());
-//            //yeah that was so much better than just passing in the CD objects wasn't it?
         response.addObject("locationNames", locationNames);
         response.addObject("cds", sortedCds);
         //            response.setViewName("cd/cdList");
@@ -281,16 +278,16 @@ public class CdController {
 
     //Get the details of this cd -- this is an internal method call only
     @RequestMapping(value = "/cd/cdDetails", method = RequestMethod.GET)
-    public ModelAndView cdDetail(@RequestParam(value = "id" ,required = true) Integer id)
+    public ModelAndView cdDetail(@RequestParam(value = "id", required = true) Integer id)
             throws Exception {
         ModelAndView response = new ModelAndView();
 
         CdDetailsBean form = new CdDetailsBean();
 
-        cdService.getCdDetails(form,id);
+        cdService.getCdDetails(form, id);
         List<Location> locations = locationDao.findAll();
         response.addObject("locations", locations);
-        response.addObject("form",form);
+        response.addObject("form", form);
         response.setViewName("cd/cdDetails");
         return response;
     }
@@ -298,12 +295,12 @@ public class CdController {
     //Delete a cd from the DB
     @DeleteMapping
     @RequestMapping(value = "/cd/cdDelete", method = RequestMethod.POST)
-    public ModelAndView cdDelete(@RequestParam(value = "id" ,required = true) Integer id)
+    public ModelAndView cdDelete(@RequestParam(value = "id", required = true) Integer id)
             throws Exception {
         ModelAndView response = new ModelAndView();
         Cd cd = cdDao.findById(id);
         if (cd != null) {
-            log.info("Delete CD : " +cd.toString());
+            log.info("Delete CD : " + cd.toString());
             cdDao.deleteCd(cd.getId());
         }
         response.setViewName("redirect:/cd/cdList");
@@ -311,7 +308,7 @@ public class CdController {
     }
 
     @RequestMapping(value = "/cd/cdMove", method = RequestMethod.POST)
-    public ModelAndView cdMove(CdDetailsBean form , @RequestParam(value = "id" ,required = true) Integer id)
+    public ModelAndView cdMove(CdDetailsBean form, @RequestParam(value = "id", required = true) Integer id)
             throws Exception {
         ModelAndView response = new ModelAndView();
         Cd cd = cdDao.findById(id);
@@ -323,7 +320,7 @@ public class CdController {
                 cdDao.saveAndFlush(cd);
             }
         }
-        response.setViewName("redirect:/cd/cdDetails?id="+id);
+        response.setViewName("redirect:/cd/cdDetails?id=" + id);
         return response;
     }
 
@@ -339,53 +336,3 @@ public class CdController {
 }  //class
 
 
-// THis got WAAAAAAAAYYY to monolithic and I've just left it as an example of what not to do
-//
-//
-//    @RequestMapping(value = "/cd/cdAddSubmit", method = RequestMethod.POST)
-//    public ModelAndView cdAddSubmit(@Valid CdEntryFormBean form, BindingResult bindingResult , @RequestParam(value = "id" , required = false) Integer id)
-//            throws Exception {
-//        ModelAndView response = new ModelAndView();
-//
-//        //ask binding result if it has errors
-//        if (bindingResult.hasErrors()) {
-//            List<String> errorMessages = new ArrayList<>();
-//
-//            for (ObjectError error : bindingResult.getAllErrors()) {
-//                errorMessages.add(error.getDefaultMessage());
-//                log.info(((FieldError) error).getField() + " " + error.getDefaultMessage());
-//            }
-//            //Add the information that was in the form back to the form when error
-//            //so the user does not have to re-enter the information
-//            response.addObject("form", form);
-//            //add the error list to the model
-//            response.addObject("errorMessages", errorMessages);
-//            response.addObject("bindingResult", bindingResult);
-//
-//            //Send the form info back to the view
-//            response.setViewName("cd/cdAdd");
-//            return response;
-//        }
-//        //send the form information to the service to deal with
-//        List<String> errors = new ArrayList<>();
-//        Performance performance = cdService.cdAddPerformance(form,errors);
-//
-//        if (errors.size() > 0) {
-//            //Service layer returned errors something went wrong try to alert the user
-//            response.addObject("form", form);
-//            form.setId(-1);
-//            response.addObject("errors", errors);
-//        }
-//        else {  //Good to go add the new form info to the array lists
-//            form.getComposers().add(form.getComposer());
-//            form.getWorks().add(form.getWork());
-//            form.getArtists().add(form.getArtist());
-//            form.getPerformancePK().add(performancePK);
-//            form.setId(form.getId());
-//            response.addObject("performancePK",performancePK);
-//            response.addObject("errors", errors);
-//        }
-//        response.addObject("form", form);
-//        response.setViewName("cd/cdAdd");
-//        return response;
-//    }

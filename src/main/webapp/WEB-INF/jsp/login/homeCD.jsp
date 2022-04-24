@@ -3,12 +3,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Main Login</title>
     <link href="../../../pub/css/login.css" rel="stylesheet">
-<%--    <link href="<c:url value="/pub/css/login.css" />" rel="stylesheet"> --%>
+    <%--    <link href="<c:url value="/pub/css/login.css" />" rel="stylesheet"> --%>
 </head>
 
 <body class="body">
@@ -32,7 +32,7 @@
         </div>
         <!-- login button tied to onSubmit functions -->
         <button id="myLoginButton" type="submit" value="Submit">
-          LOGIN
+            LOGIN
         </button>
 
         <div class="registerLogin">

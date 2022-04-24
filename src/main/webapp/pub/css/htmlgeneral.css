@@ -3,13 +3,13 @@
     background: linear-gradient(to bottom right,
     rgb(147, 235, 251),
     rgb(120, 106, 245))
- }
+}
 
- .card-img-top {
-     width: 100% !important;
-     height: 30vh !important;
-     object-fit: cover;
- }
+.card-img-top {
+    width: 100% !important;
+    height: 30vh !important;
+    object-fit: cover;
+}
 
 /*.top-bach {*/
 /*    width: 100% !important;*/

@@ -23,7 +23,9 @@ public class LocationNameUniqueValidator implements ConstraintValidator<Location
 
     @Override
     public boolean isValid(String str, ConstraintValidatorContext constraintValidatorContext) {
-        if (str.isEmpty()) {return true;}
+        if (str.isEmpty()) {
+            return true;
+        }
         Location location = locationDAO.findByLocationName(str);
         return (location == null);
 

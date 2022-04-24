@@ -9,8 +9,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-//import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Assertions;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -18,7 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class TestCdDAO {
 
     @Autowired
@@ -30,7 +28,8 @@ public class TestCdDAO {
     Location l1;
     Location l2;
 
-    @BeforeEach void setup() {
+    @BeforeEach
+    void setup() {
         l1 = new Location();
         l1.setLocationName("office");
         l2 = new Location();
@@ -41,7 +40,7 @@ public class TestCdDAO {
     @ParameterizedTest
     @Order(1)
     @Rollback(value = false)
-    @CsvSource({"home, 1 , 1","home, 2, 1", "Telarc, TDC-0401, 2"})
+    @CsvSource({"home, 1 , 1", "home, 2, 1", "Telarc, TDC-0401, 2"})
     public void createCdTest(String label, String catalogNumber, Integer locationId) {
         locationDao.save(l1);
         locationDao.save(l2);

@@ -21,12 +21,12 @@ public class CdDetailBean {
 
     private Integer id = 0;
 
-    private String locationName ="";
+    private String locationName = "";
 
-    private String composer ="";
+    private String composer = "";
 
-    private String performance ="";
+    private String performance = "";
 
-    private String artist ="";
+    private String artist = "";
 
 }

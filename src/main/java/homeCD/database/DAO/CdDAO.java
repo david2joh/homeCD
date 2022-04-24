@@ -8,9 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
-import java.util.Map;
 
 //Mark the repository as transactional since there are update/delete methods
 //Mark individual methods with @Modifying to limit the scope
@@ -19,10 +17,9 @@ import java.util.Map;
 public interface CdDAO extends JpaRepository<Cd, Long> {
 
 
-
     public Cd findById(@Param("id") Integer id);
 
-   // public List<Cd> findAllOrderById();
+    // public List<Cd> findAllOrderById();
 
     public List<Cd> findAll();
 
@@ -31,6 +28,6 @@ public interface CdDAO extends JpaRepository<Cd, Long> {
     public Cd findCdByLabelAndAndCatalogNumber(@Param("label") String label, @Param("catalogNumber") String catalogNumber);
 
     @Modifying
-    @Query(value ="DELETE FROM Cd c where c.id = :id")
+    @Query(value = "DELETE FROM Cd c where c.id = :id")
     public void deleteCd(@Param("id") Integer id);
 }

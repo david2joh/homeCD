@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="locations")
+@Table(name = "locations")
 public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -21,5 +21,5 @@ public class Location {
     private String locationName;
 
     @OneToMany(mappedBy = "location", fetch = FetchType.EAGER)
-    private Set<Cd> cds =new HashSet<>();
+    private Set<Cd> cds = new HashSet<>();
 }

@@ -1,5 +1,9 @@
 package homeCD.security;
 
+import homeCD.database.DAO.UserDAO;
+import homeCD.database.DAO.UserRoleDAO;
+import homeCD.database.entity.User;
+import homeCD.database.entity.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import homeCD.database.DAO.UserDAO;
-import homeCD.database.DAO.UserRoleDAO;
-import homeCD.database.entity.User;
-import homeCD.database.entity.UserRole;
-import homeCD.database.DAO.UserDAO;
-import homeCD.database.DAO.UserRoleDAO;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+//
+//Security boilerplate
+//
 @Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 

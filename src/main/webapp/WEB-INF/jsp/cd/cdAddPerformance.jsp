@@ -153,7 +153,8 @@
                                                 <%--                                                <input class="btn btn-outline-success btn-sm" type="submit" Value="Modify--%>
                                                 <%--                                            </form>--%>
 
-                                            <form class="" id="deleteBtn" action="/cd/cdAddPerformanceDelete" method="post">
+                                            <form class="" id="deleteBtn" action="/cd/cdAddPerformanceDelete"
+                                                  method="post">
                                                 <input type="hidden" name="id" value="${form.id}">
                                                 <input type="hidden" name="label" value="${form.label}">
                                                 <input type="hidden" name="catalogNumber" value="${form.catalogNumber}">

@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = LocationNameFoundValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface  LocationNameFound {
+public @interface LocationNameFound {
 
     String message() default "{ LocationNameFound}";
 

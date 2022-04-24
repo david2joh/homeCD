@@ -24,3 +24,10 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/logs/
+/sql/exportsql20220406/
+/sql/sqldata20220407/
+/sql/sqldata20220408/
+/sql/sqldata20220410/
+/sql/sqldata20220412/
+/sql/sqldata20220413/

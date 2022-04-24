@@ -1,25 +1,24 @@
 package homeCD.controller;
 
 
+import homeCD.database.DAO.ComposerDAO;
+import homeCD.database.DAO.LocationDAO;
+import homeCD.database.entity.Composer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import homeCD.database.DAO.LocationDAO;
-import homeCD.database.DAO.ComposerDAO;
-import homeCD.database.entity.Composer;
 
-// import homeCD.formbean.LocationFormBean;
-//import javax.validation.Valid;
-
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 //
 // Handle the main menu landing page
 //
-// Not a lot here but
+// Not a lot here
 
 
 @Slf4j
@@ -44,7 +43,7 @@ public class MenuController {
         List<Composer> composers = composerDao.findAllOrderByComposerName();
         response.addObject("composers", composers);
         // locations = locationDAO.findAll();
-        List<Map<String,Object>> locations = locationDao.getLocationCount();
+        List<Map<String, Object>> locations = locationDao.getLocationCount();
 
         response.addObject("locations", locations);
 

@@ -35,10 +35,10 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                     <div class="col-md-2 mb-2 pb-2">
                                         <form action="/cd/cdDelete" method="POST">
 
-                                                <input type="hidden" name="id" value="${form.id}">
+                                            <input type="hidden" name="id" value="${form.id}">
 
-                                                    <input class="btn btn-outline-danger btn-sm" type="submit"
-                                                           value="Delete"/>
+                                            <input class="btn btn-outline-danger btn-sm" type="submit"
+                                                   value="Delete"/>
 
 
                                         </form>

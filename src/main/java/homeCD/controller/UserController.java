@@ -1,24 +1,27 @@
 package homeCD.controller;
 
+import homeCD.database.DAO.UserDAO;
 import homeCD.database.DAO.UserRoleDAO;
-import homeCD.database.entity.UserRole;
+import homeCD.database.entity.User;
+import homeCD.formbean.RegisterFormBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import homeCD.database.DAO.UserDAO;
-import homeCD.database.entity.User;
-import homeCD.formbean.RegisterFormBean;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+
+//Handle our user requests
+//Searching for users ,registering new users
+//Security handled at the method level where necessary
+//
+
 
 @Slf4j
 @Controller
@@ -45,7 +48,7 @@ public class UserController {
         ModelAndView response = new ModelAndView();
         response.setViewName("user/search");
 
-      List<User> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
 
         //if(StringUtils.isEmpty(searchFirstName)) {   //apache string utils to do the same check
         if (searchUserName != null && !searchUserName.isBlank()) {
@@ -86,8 +89,6 @@ public class UserController {
 
         return response;
     }
-
-
 
 
 }

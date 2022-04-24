@@ -9,18 +9,12 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name="performances")
+@Table(name = "performances")
 public class Performance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private Integer id;
-
-//    @Column(name = "cd_id",  nullable = false ,insertable = false, updatable = false)
-//    private Integer cdId;
-//
-//    @Column(name = "composer_id",  nullable = false , insertable = false, updatable = false)
-//    private Integer composerId;
 
     @Column(name = "performance", nullable = false, length = 45)
     private String performance;
@@ -31,13 +25,13 @@ public class Performance {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cd_id" , nullable = false)
+    @JoinColumn(name = "cd_id", nullable = false)
     private Cd cd;
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "composer_id" ,nullable = false)
+    @JoinColumn(name = "composer_id", nullable = false)
     private Composer composer;
 
     public Composer getComposer() {

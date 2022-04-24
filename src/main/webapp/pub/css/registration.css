@@ -24,6 +24,6 @@ body {
     height: 40vh;
     object-fit: cover;
     /* border-radius: 15px; */
-    border-top-left-radius:  .3rem;
+    border-top-left-radius: .3rem;
     border-top-right-radius: .3rem;
 }

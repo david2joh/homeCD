@@ -39,7 +39,7 @@
 }
 
 .form-group {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular',  sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', sans-serif;
     font-weight: 800;
     font-style: italic;
 }
@@ -55,15 +55,15 @@
     text-align: center;
     box-shadow: darkgray;
     background-color: white;
-    color: rgb(0,123,255);
-    border: 1px solid rgb(0,123,255);
+    color: rgb(0, 123, 255);
+    border: 1px solid rgb(0, 123, 255);
     border-radius: 0.3rem;
     margin-top: 2rem;
 }
 
 /* Add a hover effect so the user knows they are about to hit the button */
 #myLoginButton:hover {
-    background-color: rgb(0,123,255);
+    background-color: rgb(0, 123, 255);
     color: white;
 }
 
@@ -102,7 +102,7 @@
     width: fit-content;
 }
 
-#layover>h4 {
+#layover > h4 {
     padding-bottom: 2px;
     font-family: 'Hurricane', sans-serif;
     font-weight: 700;

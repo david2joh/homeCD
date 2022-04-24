@@ -11,7 +11,7 @@ import java.util.Set;
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name="composers")
+@Table(name = "composers")
 public class Composer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

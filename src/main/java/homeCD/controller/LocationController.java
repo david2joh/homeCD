@@ -1,5 +1,7 @@
 package homeCD.controller;
 
+import homeCD.database.DAO.LocationDAO;
+import homeCD.database.entity.Location;
 import homeCD.formbean.CdDetailBean;
 import homeCD.formbean.LocationFormBean;
 import lombok.extern.slf4j.Slf4j;
@@ -10,13 +12,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import homeCD.database.DAO.LocationDAO;
-import homeCD.database.entity.Location;
-
-// import homeCD.formbean.LocationFormBean;
-//import javax.validation.Valid;
 
 import javax.validation.Valid;
 import java.util.*;
@@ -75,11 +75,11 @@ public class LocationController {
             //Add the information that was in the form back to the form when erroring
             //so the user does not have to re-enter the information
             response.addObject("form", form);
-            //add the errror list to the model
+            //add the error list to the model
             response.addObject("errorMessages", errorMessages);
             response.addObject("bindingResult", bindingResult);
             log.warn(bindingResult.getAllErrors().toString());
-            //because this is an error we do not want to processs to create/update/delete a location in the DB
+            //because this is an error we do not want to process a create/update/delete for a location in the DB
             // We want to show the same model that we are already on location/list
             rmap.addAttribute("locations", locations);
             rmap.addAttribute("bindingResult", bindingResult);
@@ -87,10 +87,9 @@ public class LocationController {
 //            response.setViewName("redirect:/location/list");
 
 //            return new ModelAndView("forward:/location/list",rmap);
-            return new ModelAndView("redirect:/location/list",rmap);
+            return new ModelAndView("redirect:/location/list", rmap);
         }
 
-        Location dbLocation = new Location();
         Location location = locationDao.findByLocationName(form.getLocationName());
         if (action.equalsIgnoreCase("update") && (form.getId() != 0)) {
             location = locationDao.findById(form.getId());
@@ -101,17 +100,15 @@ public class LocationController {
                 location.setLocationName(form.getLocationName());
                 locationDao.save(location);
                 log.debug("Location creation = " + form.toString());
-            }
-            else if (action.equalsIgnoreCase("update")) {
-                //Already know that location name is valid so just update
-                log.debug("Location name changed from : " + location.getLocationName() +
-                        " to " + form.getLocationName());
-                location.setLocationName(form.getLocationName());
-                locationDao.save(location);
-                response.setViewName("redirect:/location/list");
-                return response;
-            }
-            else {  //wow someone spoofed us just go back reseting the form
+//            } else if (action.equalsIgnoreCase("update")) {
+//                //Already know that location name is valid so just update
+//                log.debug("Location name changed from : " + location.getLocationName() +
+//                        " to " + form.getLocationName());
+//                location.setLocationName(form.getLocationName());
+//                locationDao.save(location);
+//                response.setViewName("redirect:/location/list");
+//                return response;
+            } else {  //wow someone spoofed us just go back reseting the form
                 log.debug("Location creation with bad inputs = " + form.toString());
                 response.setViewName("redirect:/location/list");
             }
@@ -125,12 +122,10 @@ public class LocationController {
                 if (location.getCds().size() == 0) {
                     locationDao.delete(location);
                     log.debug("Location deleted  : " + location.getLocationName());
-                }
-                else {
+                } else {
                     log.warn("Location delete attempted on Non Empty Location :" + location.getLocationName());
                 }
-            }
-            else {
+            } else {
                 if (action.equalsIgnoreCase("update")) {
                     //Already know that location name is valid so just update
                     log.debug("Location name changed from : " + location.getLocationName() +
@@ -141,14 +136,13 @@ public class LocationController {
                 }
             }
         }
-            response.setViewName("redirect:/location/list");
-            return response;
-        }
-
+        response.setViewName("redirect:/location/list");
+        return response;
+    }
 
 
     @RequestMapping(value = "/location/details", method = RequestMethod.GET)
-    public ModelAndView lDetails(@RequestParam("locationId")  Integer locationId) throws Exception {
+    public ModelAndView lDetails(@RequestParam("locationId") Integer locationId) throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("location/details");
 
@@ -156,13 +150,13 @@ public class LocationController {
 
         response.addObject("location", location);
 
-        Map<String,Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         List<CdDetailBean> cdDetails = new LinkedList<>();
-        List<Map<String,Object>> results =  locationDao.getCDdetailsBylocationId((locationId));
-        if (result != null ) {
+        List<Map<String, Object>> results = locationDao.getCDdetailsBylocationId((locationId));
+        if (result != null) {
             for (int i = 0; i < results.size(); i++) {
                 CdDetailBean cdDetail = new CdDetailBean();
-                cdDetail.setId(i+1);
+                cdDetail.setId(i + 1);
                 result = results.get(i);
                 cdDetail.setLocationName((String) result.get("locationName"));
                 cdDetail.setComposer((String) result.get("composerName"));

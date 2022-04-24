@@ -9,6 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+// User queries
+//
+// Because the username is the important field matching up requires some
+// interesting contortions just to add a partial string
+//
+
 @Repository
 public interface UserDAO extends JpaRepository<User, Long> {
 

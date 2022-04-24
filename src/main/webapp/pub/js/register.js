@@ -3,15 +3,20 @@ const confirm = document.getElementById("confirmPassword");
 const msg = document.getElementById("message");
 
 
-$('#registerForm').on("submit", function(event) {
+$('#registerForm').on("submit", function (event) {
     let passwordTest = (psswd.value === confirm.value);
-    if (!passwordTest) {  event.preventDefault(); alert("password and confirm passwords do not match");}
-    else {        msg.style.color = 'green';
-                  $('#message').text("Registration Successful") ;
+    if (!passwordTest) {
+        event.preventDefault();
+        alert("password and confirm passwords do not match");
+    } else {
+        msg.style.color = 'green';
+        $('#message').text("Registration Successful");
     }
 })
 
-function validate() {}
+function validate() {
+}
+
 // // SBA  loop through an array (well it only has one member but ...)
 // function validate() {
 //     'use strict'

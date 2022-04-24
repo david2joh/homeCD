@@ -1,6 +1,5 @@
 package homeCD.formbean;
 
-import homeCD.database.entity.Cd;
 import homeCD.database.entity.Performance;
 import lombok.*;
 
@@ -37,8 +36,8 @@ public class PerformanceEntryFormBean {
 
     //Used to circumvent a set of DB lookups while we are creating the CD
     List<String> composers = new ArrayList<>();
-    List<String> works     = new ArrayList<>();
-    List<String> artists   = new ArrayList<>();
+    List<String> works = new ArrayList<>();
+    List<String> artists = new ArrayList<>();
     List<Integer> performancePK = new ArrayList<>();
 
     List<Performance> performances = new ArrayList<>();
