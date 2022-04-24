@@ -36,7 +36,7 @@ public class LocationController {
 
     // List  Locations for the intro location page
     @RequestMapping(value = "/location/list", method = RequestMethod.GET)
-    public ModelAndView list(LocationFormBean form, BindingResult bindingResult) throws Exception {
+    public ModelAndView list() throws Exception {
         ModelAndView response = new ModelAndView();
         response.setViewName("location/list");
 
@@ -49,9 +49,9 @@ public class LocationController {
         Seeding the model with an empty form so that the JSP substitutions will not error out
         in this case spring is being nice enough to not throw errors but these 2 lines are safety
          */
-        form = new LocationFormBean();
+        LocationFormBean form = new LocationFormBean();
         response.addObject("form", form);
-        response.addObject("bindingResult", bindingResult);
+//        response.addObject("bindingResult", bindingResult);
         return response;
     }
 
@@ -86,8 +86,8 @@ public class LocationController {
             rmap.addAttribute("form", form);
 //            response.setViewName("redirect:/location/list");
 
-            return new ModelAndView("forward:/location/list",rmap);
-//            return new ModelAndView("redirect:/location/list",rmap);
+//            return new ModelAndView("forward:/location/list",rmap);
+            return new ModelAndView("redirect:/location/list",rmap);
         }
 
         Location dbLocation = new Location();

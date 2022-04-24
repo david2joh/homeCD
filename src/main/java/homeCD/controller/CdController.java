@@ -296,6 +296,7 @@ public class CdController {
     }
 
     //Delete a cd from the DB
+    @DeleteMapping
     @RequestMapping(value = "/cd/cdDelete", method = RequestMethod.POST)
     public ModelAndView cdDelete(@RequestParam(value = "id" ,required = true) Integer id)
             throws Exception {
