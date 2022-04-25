@@ -27,13 +27,11 @@
                                      </tr>
                                     <c:forEach items="${cdDetails}" var="cd" varStatus="i">
                                         <tr scope="row">
-                                            <td><c:out value="${i.getCount()}"/></td>
+                                            <td><a href="/cd/cdDetails?id=${cd.id}" />
+                                            <c:out value="${i.getCount()}"/></td>
                                             <td>${cd.composer}</td>
                                             <td>${cd.performance}</td>
                                             <td>${cd.artist}</td>
-<%--                                            <c:forEach items="${cd.performances}" var="performance">--%>
-<%--                                                <td>${performance.performance}</td>--%>
-<%--                                            </c:forEach>--%>
                                         </tr>
                                     </c:forEach>
                                 </table>

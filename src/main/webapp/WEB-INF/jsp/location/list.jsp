@@ -30,14 +30,6 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                     </td>
                                     <td>${location.locationName}</td>
                                     <td>${location.cds.size()}</td>
-                                        <%--                                    <td>--%>
-                                        <%--                                        <form action="/user/locationChange/delete" id="deleteForm1">--%>
-                                        <%--                                            <input type="hidden" name="locationName" id="deleteLocation1"--%>
-                                        <%--                                                   value=${location.locationName}>--%>
-                                        <%--                                            <input class="btn btn-outline-primary btn-md" type="submit"--%>
-                                        <%--                                                   value="delete" />--%>
-                                        <%--                                        </form>--%>
-                                        <%--                                    </td>--%>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -52,9 +44,6 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                                placehoder="Add New Location" name="locationName" required/>
                                         <label class="form-label" for="newLocation">Add New Location</label>
                                         <div id="validationnewlocationFeedback" class="invalid-feedback"></div>
-                                        <%--                                        <c:forEach items='${bindingResult.getFieldErrors("locationName")}' var="error">--%>
-                                        <%--                                            <div style="color:red;">${error.getDefaultMessage()}</div>--%>
-                                        <%--                                        </c:forEach>--%>
                                     </div>
                                 </div>
                                 <div class="col-md-1 mb-4"></div>
@@ -69,28 +58,37 @@ max two items per row so each item in a row set to col-6 or col-12 -->
                                 <div class="col-md-1 mb-4"></div>
                                 <div class="col-md-4 mb-4">
                                     <div class="form-outline">
-                                        <input type="text" id="deleteLocation"
-                                               class="form-control form-control-lg" placehoder="Delete a Location"
-                                               name="locationName" value="${form.locationName}" required/>
-                                        <label class="form-label" for="newLocation">Delete a Location</label>
-                                        <div id="validationdeleteLocationFeedback" class="invalid-feedback">
-                                        </div>
+                                        <%--   <input type="text" id="deleteLocation"--%>
+                                        <%--    class="form-control form-control-lg" placehoder="Delete a Location"--%>
+                                        <%--    name="locationName" value="${form.locationName}" required/>--%>
+                                        <%--   <label class="form-label" for="newLocation">Delete a Location</label>--%>
+                                        <%--   <div id="validationdeleteLocationFeedback" class="invalid-feedback">--%>
+                                       <select class="form-select form-select-md mb-3"
+                                                name="locationName" id="deleteLocationName" aria-label="location delete selection">
+                                            <option selected disabled>Delete a Location</option>
+                                            <c:forEach items="${locations}" var="location">
+                                                <option value="${location.locationName}">${location.locationName}</option>
+                                            </c:forEach>
+                                        </select>
+
+
                                     </div>
                                 </div>
-                                <div class="col-md-1 mb-4"></div>
-                                <div class="col-md-3 pt-2">
-                                    <input class="btn btn-outline-primary btn-md" type="submit"
-                                           value="delete"/>
-                                </div>
+
+                            <div class="col-md-1 mb-4"></div>
+                            <div class="col-md-3">
+                                <input class="btn btn-outline-primary btn-md" type="submit"
+                                       value="delete"/>
                             </div>
-                        </form>
-                        <c:forEach items='${bindingResult.getFieldErrors("locationName")}' var="error">
-                            <div style="color:red;">${error.getDefaultMessage()}</div>
-                        </c:forEach>
                     </div>
+                    </form>
+                    <c:forEach items='${bindingResult.getFieldErrors("locationName")}' var="error">
+                        <div style="color:red;">${error.getDefaultMessage()}</div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 </section>
